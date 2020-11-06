@@ -1,10 +1,8 @@
-Welcome to NGINX APP Protect lab guide
+Welcome to the F5 Web Application Firewall Solutions lab guide
 ######################################
 
-Publish and protect modern applications
-***************************************
 
-.. warning :: For any remark or mistake in this lab, please send a Teams chat to Matthieu DIERICK
+.. warning :: For any remark or mistake in this lab, please send a Teams chat to Patrick Zoller
 
 .. image:: NAP_index.png
    :align: center

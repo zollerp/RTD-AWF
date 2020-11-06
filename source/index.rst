@@ -1,5 +1,5 @@
 Welcome to the F5 Advanced Web Application Firewall Solutions lab guide
-######################################
+#######################################
 
 This series of lab exercises is intended to explain and demonstrate key features of F5 Advanced Web Application Firewall
 ***************************************

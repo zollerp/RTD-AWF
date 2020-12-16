@@ -1,5 +1,5 @@
-Workflow of this lab
-####################
+Module 2: Bot Detection Lab
+#################
 
 The demo is split into 3 classes and 9 steps :
 

@@ -1,5 +1,5 @@
-Step 2 - Publish Arcadia app with a NGINX Plus Ingress Controller
-#################################################################
+Module 4: Transparent WAF Policy
+######################
 
 It's time to publish Arcadia application externally from the Kubernetes cluster.
 

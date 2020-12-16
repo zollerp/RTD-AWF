@@ -1,5 +1,5 @@
-Step 1 - Deploy and publish Arcadia Finance application in Kubernetes
-#####################################################################
+Module 3: Threat Campaigns
+################
 
 It's time to deploy Arcadia Finance application :)
 

@@ -1,5 +1,5 @@
-Architecture of Arcadia Application
-###################################
+Module 1: IPI & Geolocation Labs
+################################
 
 .. note:: This application is available in GitLab in case you want to build your own lab : 
 

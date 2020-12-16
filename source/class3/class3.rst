@@ -1,5 +1,5 @@
 Class 3 - Advanced Protection and Positive Security
-##############################################################
+###################################################
 
 In this class, we will deploy NGINX App Protect in CentOS host by installing the RPM packages from the official NGINX Plus Repo.
 

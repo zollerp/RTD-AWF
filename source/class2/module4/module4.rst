@@ -1,5 +1,5 @@
-Step 6 - Check logs in Kibana
-#############################
+Module 4: Login Page protection
+###############################
 
 In this module, we will check the logs in ELK (Elastic, Logstash, Kibana)
 

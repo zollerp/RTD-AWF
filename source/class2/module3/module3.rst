@@ -1,5 +1,5 @@
-Step 5 - Update the Docker image with the Threat Campaign package
-#################################################################
+Module 3: DAST Integration
+##########################
 
 In this module, we will install the package Threat Campaign into a new Docker image.
 

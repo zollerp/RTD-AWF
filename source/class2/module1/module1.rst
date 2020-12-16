@@ -1,5 +1,5 @@
-Step 3 - Build your first NAP (NGINX App Protect) Docker image
-##############################################################
+Module 1 - Bot Defense
+######################
 
 In this module, we will build manually our first NAP Docker image via command line.
 

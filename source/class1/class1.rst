@@ -1,12 +1,11 @@
-Class 1 - Deploy modern application with modern tools
-#####################################################
+Class 1 - Getting started with WAF, Bot Detection and Threat Campaigns
+######################################################################
 
+
+This class will focus on a best practice approach to getting started with F5 WAF and application security. 
+This introductory class will give you guidance on deploying WAF services in a successive fashion. 
+This 141 class focuses entirely on the negative security model aspects of WAF configuration.
 In this class, we will deploy a modern application (Arcadia Finance app) with modern tools in a modern environment.
-
-What are modern tools:
-   - Ansible
-   - Terraform
-   - Jenkins
 
 What is a modern environment:
    - Kubernetes

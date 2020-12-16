@@ -19,9 +19,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'NGINX App Protect'
-copyright = u'2020, Matthieu Dierick'
-author = u'Matthieu Dierick'
+project = u'F5 AWF BP'
+copyright = u'2020, EMEA Security Team'
+author = u'EMEA Security Team'
 
 # The short X.Y version
 version = u''

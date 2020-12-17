@@ -1,5 +1,5 @@
-Module 3: Leaked Credential Check
-#################################
+Module 3: Datasafe
+##################
 
 In this module, we will install NGINX Plus and App Protect packages on CentOS with a CI/CD toolchain. NGINX teams created Ansible modules to deploy it easily in a few seconds.
 

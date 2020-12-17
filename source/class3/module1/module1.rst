@@ -1,5 +1,5 @@
-Step 9 - Install the NGINX Plus and App Protect packages manually
-#################################################################
+Module 1: Leaked Credential Check - Credential Stuffing
+#######################################################
 
 In this module, we will manually install the NGINX Plus and NGINX App Protect modules in CentOS from the official repository.
 

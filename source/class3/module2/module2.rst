@@ -1,5 +1,5 @@
-Step 10 - Deploy App Protect via CI/CD pipeline
-##############################################
+Module 2: Check how Device ID+ works
+####################################
 
 In this module, we will install NGINX Plus and App Protect packages on CentOS with a CI/CD toolchain. NGINX teams created Ansible modules to deploy it easily in a few seconds.
 

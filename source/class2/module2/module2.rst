@@ -1,4 +1,4 @@
-Module 2 - Behavioral DoS
+Module 2: Behavioral DoS
 #########################
 
 In this module, we will update the signature package in the Docker image.

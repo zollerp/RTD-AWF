@@ -30,9 +30,6 @@ F5ers can access the blueprint directly from UDF without launching a course.
           We will do our best to prioritize the development of the content based on demand.
 
 
-.. image:: AWF_index.png
-   :align: center
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

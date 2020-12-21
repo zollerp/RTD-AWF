@@ -34,5 +34,5 @@ F5ers can access the blueprint directly from UDF without launching a course.
    :caption: Contents:
    :glob:
 
+   environment*/*
    class*/class*
-   environment*/environment*

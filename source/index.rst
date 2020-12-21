@@ -35,4 +35,4 @@ F5ers can access the blueprint directly from UDF without launching a course.
    :glob:
 
    class*/class*
-
+   environment*/environment*

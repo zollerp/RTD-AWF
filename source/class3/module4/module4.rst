@@ -1,4 +1,4 @@
-Module 3: Offline Machine Learning 
+Module 4: Datasafe
 ##################################
 
 In this module, we will install NGINX Plus and App Protect packages on CentOS with a CI/CD toolchain. NGINX teams created Ansible modules to deploy it easily in a few seconds.

@@ -1,4 +1,4 @@
-Module 3: Datasafe
+Module 3: N/A
 ##################
 
 In this module, we will install NGINX Plus and App Protect packages on CentOS with a CI/CD toolchain. NGINX teams created Ansible modules to deploy it easily in a few seconds.

@@ -4,6 +4,12 @@ Welcome to the F5 Advanced Web Application Firewall Solutions lab guide
 This series of lab exercises is intended to explain and demonstrate key features of F5 Advanced Web Application Firewall. 
 Our intend is to proviode insights on how to provide demos on the following content:
 
+
+**Getting to Know the Environment**
+	- Module 1: Lab Topology
+	- Module 2: How to Deploy a Solution
+	- Module 3: N/A
+
 **Class 1 - Getting started with WAF, Bot Detection and Threat Campaigns**
 	- Module 1: IPI & Geolocation Labs
 	- Module 2: Bot Detection Lab
@@ -28,6 +34,8 @@ F5ers can access the blueprint directly from UDF without launching a course.
 .. note:: If a given topic is not highlighted currently on this page or something is incorrectly documented, please send a Teams Chat to Patrick Zoller.
           We will do our best to prioritize the development of the content based on demand.
 
+.. image:: ./AWF_index.png
+   :align: center
 
 .. toctree::
    :maxdepth: 2

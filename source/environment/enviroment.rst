@@ -1,5 +1,5 @@
 Getting to Know the Environment
-###################################################
+###############################
 
 The F5 Advanced Web Application Firewall Solutions lab is the cornerstone of the Security SME team’s continuing effort to educate F5ers, partners, and customers on ways to efficiently use F5 AWF.
 This Blueprint is comprised of multiple components including xyz  just to name a few. 

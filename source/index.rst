@@ -20,7 +20,6 @@ Our intend is to proviode insights on how to provide demos on the following cont
 	- Module 1: Leaked Credential Check - Credential Stuffing - FOCUS
 	- Module 2: Check how Device ID+ works - FOCUS
 	- Module 3: Offline Machine Learning - FOCUS
- 	- Module 4: Check how Device ID+ works - FOCUS
 
 To deploy a solution you must be logged into UDF (https://udf.f5.com).
 

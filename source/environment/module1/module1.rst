@@ -11,11 +11,11 @@ BIG-IP Component
 
 - ``BIG-IP 15.1 - Machine Learning Demo``
 
-.. note:: BIG-IP mainly used to Demo *Offline Machine Learning*. The feature *Offline Machine Learning* is currently in Beta.
+.. note:: This BIG-IP mainly used to Demo *Offline Machine Learning*. The feature *Offline Machine Learning* is currently in Beta.
 
 - ``BIG-IP 15.1.1 - Leaked Credential Check Demo``
 
-.. note:: BIG-IP mainly used to Demo *Leaked Credential Check Demo*. The feature *Leaked Credential Check Demo* is currently in Beta.
+.. note:: This BIG-IP mainly used to Demo *Leaked Credential Check Demo*. The feature *Leaked Credential Check Demo* is currently in Beta.
 
 - ``BIG-IP 16.0 - Generic Demos and Device ID+``
 On this BIG-IP you can run Demos on following purposes:

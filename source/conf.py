@@ -16,12 +16,18 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import sys
+import sphinx
+import sphinx_rtd_theme
+import f5_sphinx_theme
+from sphinx.errors import VersionRequirementError
+
 
 # -- Project information -----------------------------------------------------
 
-project = u'F5 AWF BP'
-copyright = u'2020, EMEA Security Team'
-author = u'EMEA Security Team'
+project = u'F5 Advanced Web Application Firewall'
+copyright = u'2020, Patrick Zoller'
+author = u'Patrick Zoller'
 
 # The short X.Y version
 version = u''
@@ -40,7 +46,7 @@ needs_sphinx = '3.3'
 # ones.
 extensions = [
     'sphinx_copybutton',
-    'sphinx_rtd_theme'
+    'f5_sphinx_theme'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -76,7 +82,7 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = 'f5_sphinx_theme'
 html_theme_path = ["_themes", ]
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -104,7 +110,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'NGINXAppProtectdoc'
+htmlhelp_basename = 'F5AdvancedWebApplicationFirewalldoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -131,8 +137,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'NGINXAppProtect.tex', u'NGINX App Protect Documentation',
-     u'Matthieu Dierick', 'manual'),
+    (master_doc, 'F5AdvancedWebApplicationFirewal.tex', u'F5 Advanced Web Application Firewall Documentation',
+     u'Patrick Zoller', 'manual'),
 ]
 
 
@@ -141,7 +147,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'nginxappprotect', u'NGINX App Protect Documentation',
+    (master_doc, 'F5AdvancedWebApplicationFirewall', u'F5 Advanced Web Application Firewall Documentation',
      [author], 1)
 ]
 
@@ -152,8 +158,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'NGINXAppProtect', u'NGINX App Protect Documentation',
-     author, 'NGINXAppProtect', 'One line description of project.',
+    (master_doc, 'F5AdvancedWebApplicationFirewall', u'F5 Advanced Web Application Firewall Documentation',
+     author, 'F5AdvancedWebApplicationFirewall', 'One line description of project.',
      'Miscellaneous'),
 ]
 

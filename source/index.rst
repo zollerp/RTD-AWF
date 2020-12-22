@@ -35,9 +35,12 @@ F5ers can access the blueprint directly from UDF without launching a course.
 .. note:: If a given topic is not highlighted currently on this page or something is incorrectly documented, please send a Teams Chat to Patrick Zoller.
           We will do our best to prioritize the development of the content based on demand.
 
+<<<<<<< HEAD
+=======
 .. image:: ./AWF_index.png
    :align: center
 
+>>>>>>> 3ab0f238277bc13def5e08065b1768f864ced28a
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

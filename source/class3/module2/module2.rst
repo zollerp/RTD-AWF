@@ -1,103 +1,75 @@
 Module 2: Check how Device ID+ works
 ####################################
 
-In this module, we will install NGINX Plus and App Protect packages on CentOS with a CI/CD toolchain. NGINX teams created Ansible modules to deploy it easily in a few seconds.
+In this module, we will work with Device ID+ and get the identifier reported back into /var/ltm/log of BIG-IP.
 
-.. note:: The official Ansible NAP role is available here https://github.com/nginxinc/ansible-role-nginx-app-protect and the NGINX Plus role here https://github.com/nginxinc/ansible-role-nginx 
+.. warning:: This is not a full integration to show a Device ID+ / AWF Demo. Currently we are working on Use Cases which can be integrated into the Demo.
+
+.. note:: We are currently working on a use case to leverage Device ID+ together with AWF and will update the Module accordingly. If you got a specific AWF "Device ID+ Usecase" in mind, please reach out to Patrick Zoller.
+
+**Device ID+ Overview**
+
+DeviceID+ is a pseudonymized identifier that can be used to identify a device visiting a customer's applications. 
+More precisely, it is an identifier for a browser or a native mobile application. For the initial release of DeviceID+, we are only focusing on Web and Mobile Web applications.
+
+.. note:: If you haven´t worked with Device ID+ before, please review the `Device ID+`_ Article on F5 Cloud Services.
+
+.. _`Device ID+` : https://clouddocs.f5.com/cloud-services/latest/f5-cloud-services-DeviceID-About.html
 
 
-**Uninstall the previous running NAP**
+**Check how Device ID+ works**
 
-    #. SSH to the App Protect in CentOS VM
+    #.  Connect to BIG-IP named "BIG-IP 16.0 generic demos and Device ID+" via TMUI.
 
-    #. Uninstall NAP in order to start from scratch
-
-        .. code-block:: bash
-
-            sudo yum remove -y app-protect*
-
-        .. image:: ../pictures/module2/yum-remove-app-protect.png
+        .. image:: ../pictures/module2/img_class3_module2_animated_1.gif
            :align: center
-           :scale: 50%
-
-    #. Uninstall NGINX Plus packages
-
-
-        .. code-block:: bash
-
-            sudo yum remove -y nginx-plus*
-
-        .. image:: ../pictures/module2/yum-remove-nginx-plus.png
-           :align: center
-           :scale: 70%
-
-    #. Delete/rename the directories from the existing deployment
-
-        .. code-block:: bash
-
-            sudo rm -rf /etc/nginx
-            sudo rm -rf /var/log/nginx
-
-**Run the CI/CD pipeline from Jenkins**
-
-Steps:
-
-    #. RDP to the Jumphost with credentials ``user:user``
-
-    #. Open ``Chrome`` and open ``Jenkins`` (if not already opened)
-
-    #. Select the pipeline ``deploy-nap-centos`` and run it
-
-
-    .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
-
-
-The pipeline is as below:
-
-.. code-block:: groovy
-
-    node {
-    stage 'Checkout'
-         // // Get some code from a GitHub repository
-        git url: 'http://10.1.20.4/nginx-app-protect/ansible_deploy.git'
-        sh 'ansible-galaxy install -r requirements.yml --force'
-   
-    stage name: 'Deploy NAP', concurrency: 1
-            dir("${env.WORKSPACE}"){
-            ansiblePlaybook inventory: 'hosts', playbook: 'app-protect.yml'
-            }
-            
-    stage name: 'Workaround resolver', concurrency: 1
-            dir("${env.WORKSPACE}"){
-            ansiblePlaybook inventory: 'hosts', playbook: 'copy-nginx-conf.yml'
-            }
-    }
-
-.. note:: As you can notice, the ``Checkout`` stage installs the ``requirements``. We use the parameter ``--force`` in order to be sure we download and install the latest version of the module.
-
-.. note:: This pipeline executes 3 Ansible playbooks. 
+           :scale: 30%
     
-    #. One playbook to install NGINX Plus
-    #. One playbook to install NAP
-    #. The last playbook is just there to fix an issue in UDF for the DNS resolver
+    #. Within the WebUI of the BIG-IP instances navigate to iApps › Application Services : Applications › deviceID and select `Reconfigure`.
+
+        .. image:: ../pictures/module2/img_class3_module2_animated_2.gif
+           :align: center
+           :scale: 30%
+
+    #. Within the iApp configuration you will find predefined JS Injection configuration in the `1JS` part. Furthermore the 1JS gets been injected on the Virtual Server named `arcadia.emea.f5se.com_vs`.
+       We leave the rest of the configuration untouched. 
+
+        .. image:: ../pictures/module2/img_class3_module2_animated_3.gif
+           :align: center
+           :scale: 30%
+
+.. note::  F5 Cloud Services on `Getting Started with F5 Device ID+`_ cover the application onboard with F5 Device ID+ on BIG-IP in more detail.
+
+.. `Device ID+` : https://clouddocs.f5.com/cloud-services/latest/f5-cloud-services-DeviceID-GettingStarted.html#getting-started-with-f5-device-id
 
 
-.. image:: ../pictures/module2/pipeline-ok.png
-   :align: center
-   :scale: 40%
+**Device ID+ and iRule**
+
+Device ID+ includes two identifiers – a residue-based identifier and an attribute-based identifier. The residue-based identifier is based on local storage and cookies. The attribute-based identifier is based on signals collected on the device.
+The two identifiers always have different values.
+
+1JS writes both the residue-based and attribute-based identifiers in a single, first-party cookie called `_imp_apg_r_`. The `_imp_apg_r_` cookie is URL encoded with the following format:
+
+%7B%22diA%22%3A%22AT9cyV8AAAAAd60uXCtYafPTZGLaVAku%22%2C%22diB%22%3A%22ASJ4gFmzPo%2Fa8AHJceWhykudRoXeBGlP%22%7D
+
+This cookie can be decoded via: https://www.urldecoder.org/ to get the response in clear text. The decoded cookie has the following format:
+
+.. code-block::
+
+{
+    "diA": "AT9cyV8AAAAAd60uXCtYafPTZGLaVAku"
+    "diB": "ASJ4gFmzPo/a8AHJceWhykudRoXeBGlP"
+}
+
+.. note:: Here, diA represents the residue-based identifier and diB represents the attribute-based identifier.
+
+Within BIG-IP we use an iRule named "print_deviceid" and do a URL decoding of the `_imp_apg_r_` cookie. 
+
+        .. image:: ../pictures/module2/img_class3_module2_static_1.gif
+           :align: center
+           :scale: 30%
+
+Variable `diA` and `diB`been logged into /var/log/ltm of BIG-IP.
 
 
-When the pipeline is finished executing, perform a browser test within ``Chrome`` using the ``Arcadia NAP Docker`` bookmark
 
-
-.. note :: Congrats, you deployed ``NGINX Plus`` and ``NAP`` with a CI/CD pipeline. You can check the pipelines in ``GitLab`` if you are interested to see what has been coded behind the scenes. But it is straight forward as the Ansible modules are provided by F5/NGINX.
-
-**Video of this module (force HD 1080p in the video settings)**
-
-.. raw:: html
-
-    <div style="text-align: center; margin-bottom: 2em;">
-    <iframe width="1120" height="630" src="https://www.youtube.com/embed/1SyqUrubSr0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>

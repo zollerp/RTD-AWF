@@ -40,7 +40,7 @@ More precisely, it is an identifier for a browser or a native mobile application
 
 .. note::  F5 Cloud Services on `Getting Started with F5 Device ID+`_ cover the application onboard with F5 Device ID+ on BIG-IP in more detail.
 
-.. `Device ID+` : https://clouddocs.f5.com/cloud-services/latest/f5-cloud-services-DeviceID-GettingStarted.html#getting-started-with-f5-device-id
+.. _`Getting Started with F5 Device ID+` : https://clouddocs.f5.com/cloud-services/latest/f5-cloud-services-DeviceID-GettingStarted.html#getting-started-with-f5-device-id
 
 
 **Device ID+ and iRule**
@@ -52,7 +52,8 @@ The attribute-based identifier is based on signals collected on the device. The 
 
 %7B%22diA%22%3A%22AT9cyV8AAAAAd60uXCtYafPTZGLaVAku%22%2C%22diB%22%3A%22ASJ4gFmzPo%2Fa8AHJceWhykudRoXeBGlP%22%7D
 
-This cookie can be decoded via: https://www.urldecoder.org/ to get the response in clear text. The decoded cookie has the following format:
+This cookie can be decoded via `URL Decoder`_ to get the response in clear text. The decoded cookie has the following format:
+.. _`URL Decoder` : https://www.urldecoder.org/
 
 .. code-block::
 

@@ -52,8 +52,7 @@ The attribute-based identifier is based on signals collected on the device. The 
 
 %7B%22diA%22%3A%22AT9cyV8AAAAAd60uXCtYafPTZGLaVAku%22%2C%22diB%22%3A%22ASJ4gFmzPo%2Fa8AHJceWhykudRoXeBGlP%22%7D
 
-This cookie can be decoded via `URL Decoder`_ to get the response in clear text. The decoded cookie has the following format:
-.. _`URL Decoder` : https://www.urldecoder.org/
+This cookie can be decoded via https://www.urldecoder.org/ to get the response in clear text. The decoded cookie has the following format:
 
 .. code-block::
 

@@ -1,244 +1,125 @@
 Module 1: Leaked Credential Check - Credential Stuffing
 #######################################################
 
-In this module, we will manually install the NGINX Plus and NGINX App Protect modules in CentOS from the official repository.
+In this module, we will Demo Leaked Credentials Check (LCC) to detect ATO attacks and provide a compliance check for NIST guidance with a single login attempt with leaked credentials.
 
-.. warning:: NGINX Plus private key and cert are already installed on the CentOS. Don't share them.
+.. warning:: Don´t use the Application ID  / Access Token outside of F5 and for production. Application ID  / Access Token to be used for demo purposes only!!!
 
-Steps:
+**Leaked Credentials Check Overview**
 
-    #. SSH to the App Protect in CentOS VM
+Leaked Credential Check (LCC) provides access to a database of compromised credentials, which can be used to detect ATO attacks and provide a compliance check for NIST guidance.
+LCC is an add-on feature to BIG-IP Advanced WAF which been consumed as a subscription service.
 
-    #. Add NGINX Plus repository by downloading the file ``nginx-plus-7.repo`` to ``/etc/yum.repos.d``:
+Advantages of F5 Leaked Credential Check (LCC)
+    - Integrated with F5 Advanced WAF; Can be enabled within minutes.
+    - LCC policy can be managed and enforced by the application owner.
+    - Flexible deployment options based on number of users; Not based on number of AWF instances.
+    - Policy configuration and enforcement can be automated via tmsh CLI and BIG-IP REST API.
 
-        .. code-block:: bash
+**Flow trough the Demo**
 
-            sudo wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/nginx-plus-7.repo
+LCC is configured on BIG-IP named "BIG-IP 15.1.1 - Leaked Credential Check Demo".
+Login to that BIG-IP instance to check the LCC configuration. The Password of the BIG-IP instance is listed within the "Details / Documentation" Tab.
 
-    #. Install the most recent version of the NGINX Plus App Protect package (which includes NGINX Plus):
+#. Within `Security › Application Security > Security Policies > Policies List` you´ll notice a Security Policy named `LCC`.
+#. The Policy is attached to Virtual Server `arcadia.emea.f5se.com_vs` and `Hackazon_protected_vs`.
 
-        .. code-block:: bash
+        .. image:: ../pictures/module1/img_class3_module1_static_1.gif
+           :align: center
+           :scale: 30%
 
-            sudo yum install -y app-protect
+#. Check the LCC configuration under `Security  › Cloud Services > Cloud Security Services Applications > f5-credential-stuffing-cloud-app`.
+#. You will notice a predefined API Key ID and API Key Secret configuration. Additional the Endpoint which will be used is called `f5-credential-stuffing-blackfish`.
 
-    #. Check the NGINX binary version to ensure that you have NGINX Plus installed correctly:
+        .. image:: ../pictures/module1/img_class3_module1_static_2.gif
+           :align: center
+           :scale: 30%
 
-        .. code-block:: bash
+.. note:: In the 15.1.1 the colour of the traffic light only reflects what happened when a credential check attempt was last made. Before that the icon will stay blue (unknown). lt is not a health monitor which can be used to indicate the current state of the service or whether the service has expired etc.
 
-            sudo nginx -v
+        .. image:: ../pictures/module1/img_class3_module1_static_2b.gif
+           :align: center
+           :scale: 30%
 
-    #. Configure the ``nginx.conf`` file. Rename the existing ``nginx.conf`` to ``nginx.conf.old`` and create a new one.
 
-        .. code-block:: bash
 
-            cd /etc/nginx/
-            sudo mv nginx.conf nginx.conf.old
-            sudo vi nginx.conf
+#. The LCC feature is configured within the Brute-Force Protection profile. Normally a login page is specified for the login credentials to be captured by Advanced WAF. The information required to manually identify the login URL can be found by reviewing the HTML source code and snooping the HTML traffic generated as a user logs into the site (e.g. keyboard F12). 
 
-        Paste the below configuration into ``nginx.conf`` and save it
+        .. image:: ../pictures/module1/img_class3_module1_static_2a.gif
+           :align: center
+           :scale: 30%
 
-        .. code-block:: bash
+.. note::  There is also the option to create login pages automatically `Creating Login Pages for Secure Application Access`_.
 
-            user  nginx;
-            worker_processes  auto;
+.. _`Creating Login Pages for Secure Application Access` : https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-asm-implementations-14-1-0/creating-login-pages-for-secure-application-access.html
 
-            error_log  /var/log/nginx/error.log notice;
-            pid        /var/run/nginx.pid;
 
-            load_module modules/ngx_http_app_protect_module.so;
+#. `Leaked Credential Detection` is enabled within the Brute Force Protection configuration.
 
-            events {
-                worker_connections 1024;
-            }
+        .. image:: ../pictures/module1/img_class3_module1_static_3.gif
+           :align: center
+           :scale: 30%
 
-            http {
-                include          /etc/nginx/mime.types;
-                default_type  application/octet-stream;
-                sendfile        on;
-                keepalive_timeout  65;
+#. The following mitigation actions can be configured as an `action`:
 
-                log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                                '$status $body_bytes_sent "$http_referer" '
-                                '"$http_user_agent" "$http_x_forwarded_for"';
+        .. image:: ../pictures/module1/img_class3_module1_static_3a.gif
+           :align: center
+           :scale: 30%
 
-                access_log  /var/log/nginx/access.log  main;
++-----------------------------------+-----------------------------------------------------------------------------------------------------+
+| Action                            | Description                                                                                         |
++===================================+=====================================================================================================+
+| Alarm                             | report the Leaked Credentials Detection violation in event log                                      |
++-----------------------------------+-----------------------------------------------------------------------------------------------------+
+| Alarm and Blocking Page           | report the Leaked Credentials Detection violation in event log and send the Blocking Response Page  |
++-----------------------------------+-----------------------------------------------------------------------------------------------------+
+| Alarm and Honeypot Page           | report the Leaked Credentials Detection violation in event log and send the Honeypot Response Page  |
++-----------------------------------+-----------------------------------------------------------------------------------------------------+
+| Alarm and Leaked Credentials Page | report the Leaked Credentials Detection violation in event log and send the Leaked Credentials Page |
++-----------------------------------+-----------------------------------------------------------------------------------------------------+
 
-                server {
-                listen       80;
-                    server_name  localhost;
-                    proxy_http_version 1.1;
 
-                    app_protect_enable on;
-                    app_protect_policy_file "/etc/nginx/NginxDefaultPolicy.json";
-                    app_protect_security_log_enable on;
-                    app_protect_security_log "/etc/nginx/log-default.json" syslog:server=10.1.20.6:5144;
+#. Within that demo `Learning and Blocking Settings` for Leaked Credential Detection have been set to `Alarm`and `Block`.
 
-                    location / {
-                        resolver 10.1.1.9;
-                        resolver_timeout 5s;
-                        client_max_body_size 0;
-                        default_type text/html;
-                        proxy_pass http://k8s.arcadia-finance.io:30274$request_uri;
-                    }
-                }
-            }
-        
-    #. Create a log configuration file ``log_default.json`` (still in ``/etc/nginx/``)
+        .. image:: ../pictures/module1/img_class3_module1_static_4.gif
+           :align: center
+           :scale: 30%
 
-        .. code-block:: bash
+#. The Honeypot Page and the Leaked Credentials Page can be configured in the Response and Blocking Pages screen (see screenshot below).
 
-            sudo vi log-default.json
+        .. image:: ../pictures/module1/img_class3_module1_static_5.gif
+           :align: center
+           :scale: 30%
 
-        Paste the configuration below into ``log-default.json`` and save it
+#. RDP to windows machine called *win-client*. The Password of the instance is listed within the "Details / Documentation" Tab.
+    #. Launch Chrome. Spot the Folder called "Leaked Credentials Check demo".
+    #. Choose the bookmark called "Hackazon — Login".
+    #. Login with username ``demo33@fidnet.com`` and password ``mountainman01`` 
+    #. Your login is blocked by LCC as those credentials are known as leaked credentials.
+    #. Alternatively you can also select the Arcadia bookmark in the "Leaked Credentials" Chrome Folder and you can also try other username/password combinations like usernam ``admin`` with password ``12345678``.
 
-        .. code-block:: json
+        .. image:: ../pictures/module1/img_class3_module1_animated_1.gif
+           :align: center
+           :scale: 30%
 
-            {
-                "filter": {
-                    "request_type": "all"
-                },
-                "content": {
-                    "format": "default",
-                    "max_request_size": "any",
-                    "max_message_size": "5k"
-                }
-            }
+#. Go back to to the BIG-IP instance to check in the request log for the blocked request with the Leaked credentials detection violation.
 
+        .. image:: ../pictures/module1/img_class3_module1_static_6.gif
+           :align: center
+           :scale: 30%
 
-    #.  Temporarily make SELinux permissive globally (https://www.nginx.com/blog/using-nginx-plus-with-selinux).
+**Additional information**
 
-        .. code-block:: bash
+The following cloud related commands could help to identify whether the cloud connection is working.
 
-            sudo setenforce 0
+#. ``tmsh show security cloud-services application-stats``
 
-    #. Start the NGINX service:
+        .. image:: ../pictures/module1/img_class3_module1_static_7.gif
+           :align: center
+           :scale: 50%
 
-        .. code-block:: bash
+#. ``tmctl app_cloud_security_service_stat``
 
-            sudo systemctl start nginx
-
-    #. Check everything is running 
-
-        .. code-block:: bash
-
-            less /var/log/nginx/error.log
-
-        .. code-block:: console
-
-            2020/05/22 09:13:20 [notice] 6195#6195: APP_PROTECT { "event": "configuration_load_start", "configSetFile": "/opt/app_protect/config/config_set.json" }
-            2020/05/22 09:13:20 [notice] 6195#6195: APP_PROTECT policy 'app_protect_default_policy' from: /etc/nginx/NginxDefaultPolicy.json compiled successfully
-            2020/05/22 09:13:20 [notice] 6195#6195: APP_PROTECT { "event": "configuration_load_success", "software_version": "2.52.1", "attack_signatures_package":{"revision_datetime":"2019-07-16T12:21:31Z"},"completed_successfully":true}
-            2020/05/22 09:13:20 [notice] 6195#6195: using the "epoll" event method
-            2020/05/22 09:13:20 [notice] 6195#6195: nginx/1.17.9 (nginx-plus-r21)
-            2020/05/22 09:13:20 [notice] 6195#6195: built by gcc 4.8.5 20150623 (Red Hat 4.8.5-39) (GCC)
-            2020/05/22 09:13:20 [notice] 6195#6195: OS: Linux 3.10.0-1127.8.2.el7.x86_64
-            2020/05/22 09:13:20 [notice] 6195#6195: getrlimit(RLIMIT_NOFILE): 1024:4096
-            2020/05/22 09:13:20 [notice] 6203#6203: start worker processes
-            2020/05/22 09:13:20 [notice] 6203#6203: start worker process 6205
-            2020/05/22 09:13:26 [notice] 6205#6205: APP_PROTECT { "event": "waf_connected", "enforcer_thread_id": 0, "worker_pid": 6205, "mode": "operational", "mode_changed": false}
-
-
-.. note:: Congrats, now your CentOS instance is protecting the Arcadia application
-
-.. note:: You may notice we used exactly the same ``log-default.json`` and ``nginx.conf`` files as in the Docker lab.
-
-
-**Now, try in the Jumphost**
-
-Steps:
-
-    #. RDP to the Jumphost with credentials ``user:user``
-
-    #. Open Chrome and click ``Arcadia NAP CentOS``
-
-    #. Run the same tests as the Docker lab and check the logs in Kibana
-
-
-**Next step is to install the latest Signature Package**
-
-Steps:
-
-    #. To add NGINX Plus App Protect signatures repository, download the file app-protect-signatures-7.repo to /etc/yum.repos.d:
-
-        .. code-block:: bash
-            
-            sudo wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/app-protect-signatures-7.repo
-
-    #. Update attack signatures:
-
-        .. code-block:: bash
-
-            sudo yum install -y app-protect-attack-signatures
-
-        To install a specific version, list the available versions:
-
-        .. code-block:: bash
-
-            sudo yum --showduplicates list app-protect-attack-signatures
-
-        To upgrade to a specific version:
-
-        .. code-block:: bash
-
-            sudo yum install -y app-protect-attack-signatures-2020.04.30
-
-        To downgrade to a specific version:
-
-        .. code-block:: bash
-
-            sudo yum downgrade app-protect-attack-signatures-2019.07.16
-
-    #. Reload NGINX process to apply the new signatures:
-
-        .. code-block:: bash
-
-            sudo nginx -s reload
-
-    #. Check the **new** signatures package date:
-
-        .. code-block:: bash
-
-            less /var/log/nginx/error.log
-
-.. note:: Upgrading App Protect does not install new Attack Signatures. You will get the same Attack Signature release after upgrading App Protect. If you want to also upgrade the Attack Signatures, you will have to explicitly update them by the respective command above.
-
-|
-
-**Last step is to install the Threat Campaign package**
-
-.. note :: The App Protect installation does not come with a built-in Threat campaigns package like Attack Signatures. Threat campaigns Updates are released periodically whenever new campaigns and vectors are discovered, so you might want to update your Threat campaigns from time to time. You can upgrade the Threat campaigns by updating the package any time after installing App Protect. We recommend you upgrade to the latest Threat campaigns version right after installing App Protect.
-
-.. note :: After having updated the Threat campaigns package you have to reload the configuration in order for the new version of the Threat campaigns to take effect. Until then App Protect will run with the old version, if exists. This is useful when creating an environment with a specific tested version of the Threat campaigns.
-
-
-Steps :
-
-    #. As the repo has been already added, no need to add it. TC and Signatures use the same repo ``https://cs.nginx.com/static/files/app-protect-signatures-7.repo``
-
-    #. Install the package 
-
-        .. code-block :: bash
-
-            sudo yum install app-protect-threat-campaigns
-    
-    #. Reload NGINX process to apply the new signatures:
-
-        .. code-block:: bash
-
-            sudo sudo nginx -s reload
-
-    #. Check the **new** Threat Campaign package date:
-
-        .. code-block:: bash
-
-            less /var/log/nginx/error.log    
-
-.. note :: We don't spend more time on Threat Campaign in this lab as we did it already in the Docker lab (Class 2 - Step 5)
-
-**Video of this module (force HD 1080p in the video settings)**
-
-.. raw:: html
-
-    <div style="text-align: center; margin-bottom: 2em;">
-    <iframe width="1120" height="630" src="https://www.youtube.com/embed/xVmxWOeJ5Cc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+        .. image:: ../pictures/module1/img_class3_module1_static_8.gif
+           :align: center
+           :scale: 50%

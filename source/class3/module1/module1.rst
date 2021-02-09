@@ -60,7 +60,7 @@ Login to that BIG-IP instance to check the LCC configuration. The Password of th
            :align: center
            :scale: 30%
 
-#. The following mitigation actions can be configured as an `action`:
+#. The following mitigation actions can be configured as an `Action`:
 
         .. image:: ../pictures/module1/img_class3_module1_static_3a.gif
            :align: center
@@ -79,7 +79,7 @@ Login to that BIG-IP instance to check the LCC configuration. The Password of th
 +-----------------------------------+-----------------------------------------------------------------------------------------------------+
 
 
-#. Within that demo `Learning and Blocking Settings` for Leaked Credential Detection have been set to `Alarm`and `Block`.
+#. Within that demo `Learning and Blocking Settings` for Leaked Credential Detection have been set to `Alarm` and `Block`.
 
         .. image:: ../pictures/module1/img_class3_module1_static_4.gif
            :align: center
@@ -91,12 +91,12 @@ Login to that BIG-IP instance to check the LCC configuration. The Password of th
            :align: center
            :scale: 30%
 
-#. RDP to windows machine called *win-client*. The Password of the instance is listed within the "Details / Documentation" Tab.
-    #. Launch Chrome. Spot the Folder called "Leaked Credentials Check demo".
-    #. Choose the bookmark called "Hackazon — Login".
+#. RDP to windows machine called *win-client*. The Password of the instance is listed within the `Details / Documentation` Tab.
+    #. Launch Chrome. Spot the Folder called `Leaked Credentials Check demo`.
+    #. Choose the bookmark called `Hackazon — Login`.
     #. Login with username ``demo33@fidnet.com`` and password ``mountainman01`` 
     #. Your login is blocked by LCC as those credentials are known as leaked credentials.
-    #. Alternatively you can also select the Arcadia bookmark in the "Leaked Credentials" Chrome Folder and you can also try other username/password combinations like usernam ``admin`` with password ``12345678``.
+    #. Alternatively you can also select the Arcadia bookmark in the `Leaked Credentials` Chrome Folder and you can also try other username/password combinations like usernam ``admin`` with password ``12345678``.
 
         .. image:: ../pictures/module1/img_class3_module1_animated_1.gif
            :align: center

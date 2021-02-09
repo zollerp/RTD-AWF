@@ -18,8 +18,8 @@ Advantages of F5 Leaked Credential Check (LCC)
 
 **Flow trough the Demo**
 
-LCC is configured on BIG-IP named "BIG-IP 15.1.1 - Leaked Credential Check Demo".
-Login to that BIG-IP instance to check the LCC configuration. The Password of the BIG-IP instance is listed within the "Details / Documentation" Tab.
+LCC is configured on BIG-IP named `BIG-IP 15.1.1 - Leaked Credential Check Demo`.
+Login to that BIG-IP instance to check the LCC configuration. The Password of the BIG-IP instance is listed within the `Details / Documentation` Tab.
 
 #. Within `Security › Application Security > Security Policies > Policies List` you´ll notice a Security Policy named `LCC`.
 #. The Policy is attached to Virtual Server `arcadia.emea.f5se.com_vs` and `Hackazon_protected_vs`.
@@ -105,6 +105,42 @@ Login to that BIG-IP instance to check the LCC configuration. The Password of th
 #. Go back to to the BIG-IP instance to check in the request log for the blocked request with the Leaked credentials detection violation.
 
         .. image:: ../pictures/module1/img_class3_module1_static_6.gif
+           :align: center
+           :scale: 30%
+
+**Demo Leaked Credentials Check with a Script**
+
+.. note:: In this demo you can do it without ASM enabled first - Hydra will find credentials and password that worked, and then do it with ASM enabled
+
+
+#. Remove ASM policy named `LCC` from Virtual Server `Hackazon_protected_virtual` on BIG-IP Instance `BIG-IP 15.1.1 - Leaked Credential Check Demo`.
+        #. Launch the attack:
+        #. SSH or use Web Shell of UDF Instance called `kali`.
+        #. Run ``sudo su``.
+        #. Check you are in directory `/home/ec2-user`, else move to this directory.
+        #. Launch the Brute Force stuffing attack (be careful, copy paste does not work every time because of the "").
+        #. ``hydra -C cred_list.txt -V -I 10.1.10.78 http-form-post "/user/login?return_url=:username=^USER^&password=^PASS^:S=My Account"``. This is the VS on the BIG-IP named ``Leaked Credential Check Demo``.
+        #. Within your Putty or Web Shell Session You should see one line with ``[80][http-post-form] host: 10.1.10.78   login: demo33@fidnet.com   password: mountainman01``. This means attack passed with this credential.
+
+        .. image:: ../pictures/module1/img_class3_module1_static_6a.gif
+           :align: center
+           :scale: 30%
+
+        #. Login to Hackazon (demo1/demo1 or with the previous stolen cred), to show it works and that there is no Captcha.
+
+
+#. Try with a distributed attack. Here we simulate a Bot network sending a Credential Stuffing attack with thousand leaked credentials. 
+        #. Enable ASM policy "LCC" on VS "Hackazon_protected_virtual".
+        #.  #. SSH or use Web Shell of UDF Instance called `kali`.
+        #. Check you are in directory `/home/ec2-user`, else move to this directory.
+        #. Launch the Brute Force stuffing attack (be careful, copy paste does not work every time because of the "").
+        #. ``hydra -C cred_list.txt -V -I 10.1.10.78 http-form-post "/user/login?return_url=:username=^USER^&password=^PASS^:S=My Account"``. This is the VS on the BIG-IP named ``Leaked Credential Check Demo``.
+        #. Keep attack on going and RDP to windows machine called *win-client*.
+        #. Launch Chrome and click Hackazon login bookmark.
+        #. Login as demo1 / demo1, you should see a Captcha. You are a legitimate user, but the website is protecting itself. Proof you are a legitimate user by answering the CAPTCHA.
+        #. Go to BIGIP and check Brute Force and cred stuffing logs `Security > Event Logs > Application > Brute Force Attack`.
+
+        .. image:: ../pictures/module1/img_class3_module1_static_6b.gif
            :align: center
            :scale: 30%
 

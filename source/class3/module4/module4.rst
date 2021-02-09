@@ -18,14 +18,14 @@ Steps:
 
 ..
 
-   *Question:*
+   **Question:**
 
    What is the **name** value for this field? username
 - Right-click inside the **Password** field and select **Inspect Element**.
 
 ..
 
-   *Question:*
+   **Question:**
    What is the **name** value for this field? password
 
 .. note:: ``FOOD FOR THOUGHT``: How difficult would it be for malware to know which fields to grab to steal credentials from this page? How difficult would it be for an attacker to stuff credentials into these fields? They could simply put the stolen username into the “username” field and the stolen password in the “password” field.
@@ -99,7 +99,9 @@ Within the exercise we will cover DataSafe Licensing and Provisioning.
 
 Steps:
 
-- In the Configuration Utility of the BIG-IP (connect via Chrome Bookmark or launch https://10.1.1.9/tmui/login.jsp ) admin: admin
+- Datasafe is configured on BIG-IP named ``BIG-IP 16.0 generic demos and Device ID+``.
+- In the Configuration Utility of the BIG-IP (connect via Chrome Bookmark or launch https://10.1.1.9/tmui/login.jsp ).
+- The Password of the BIG-IP instance is listed within the ``Details / Documentation`` Tab.
 
 .. note:: DataSafe is NOT included in the Best Bundle but DataSafe IS INCLUDED in Advanced WAF.
 
@@ -214,7 +216,7 @@ Steps:
 
 ..
 
-   *Question:*
+   **Question:**
 
    What is the **name** value for this field?
 
@@ -241,7 +243,7 @@ Steps:
 
 ..
 
-   *Questions:*
+   **Question:**
 
    What parameters were submitted? Random
 

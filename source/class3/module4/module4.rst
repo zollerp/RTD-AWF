@@ -1,103 +1,272 @@
 Module 4: Datasafe
 ##################################
 
-In this module, we will install NGINX Plus and App Protect packages on CentOS with a CI/CD toolchain. NGINX teams created Ansible modules to deploy it easily in a few seconds.
+The purpose of this lab is to show the new DataSafe perpetual license in 13.1 and above (also part of Advanced WAF license).
+You will review the login page with and without DataSafe protections. You will enable and test encryption, obfuscation, and decoy fields.
 
-.. note:: The official Ansible NAP role is available here https://github.com/nginxinc/ansible-role-nginx-app-protect and the NGINX Plus role here https://github.com/nginxinc/ansible-role-nginx 
+.. note:: Cudos to 
 
+**Exercise 1 – TASK 1 - Review and Attack the Login Page**
 
-**Uninstall the previous running NAP**
-
-    #. SSH to the App Protect in CentOS VM
-
-    #. Uninstall NAP in order to start from scratch
-
-        .. code-block:: bash
-
-            sudo yum remove -y app-protect*
-
-        .. image:: ../pictures/module2/yum-remove-app-protect.png
-           :align: center
-           :scale: 50%
-
-    #. Uninstall NGINX Plus packages
-
-
-        .. code-block:: bash
-
-            sudo yum remove -y nginx-plus*
-
-        .. image:: ../pictures/module2/yum-remove-nginx-plus.png
-           :align: center
-           :scale: 70%
-
-    #. Delete/rename the directories from the existing deployment
-
-        .. code-block:: bash
-
-            sudo rm -rf /etc/nginx
-            sudo rm -rf /var/log/nginx
-
-**Run the CI/CD pipeline from Jenkins**
+Purpose: Review ``Form Fields`` with the Developer Tools.
 
 Steps:
+    #. Connect to the Windows Client ``win-client`` via RDP (Select an appropriate screen resolution for your screen) ensuirng that you login with username/password as ``admin/admin`` (change user from default Administrator if required on the logon prompt screen).
+    #. Once connected to the Windows client, open Firefox and access ``http://hackazon.f5demo.com/user/login``.
+    #. Right-click inside the Username or Email field and select Inspect Element. The developer tools window will open.
+    #. Delete/rename the directories from the existing deployment.
 
-    #. RDP to the Jumphost with credentials ``user:user``
+..note:: ``FOOD FOR THOUGHT``: How difficult would it be for malware to know which fields to grab to steal credentials from this page? How difficult would it be for an attacker to stuff credentials into these fields? They could simply put the stolen username into the “username” field and the stolen password in the “password” field.
 
-    #. Open ``Chrome`` and open ``Jenkins`` (if not already opened)
+**Exercise 1 – TASK 2 - Review Methods for Stealing Credentials**
 
-    #. Select the pipeline ``deploy-nap-centos`` and run it
+Steps:
+    #. From the Windows client, in Firefox click the FPS Demo Tools Bookmark, without opening a new tab. This includes tools that behave like real malware.
+    #. On the login page of the Hackazon website enter your first name and P@ssw0rd! as password but do not click ``Sign In``.
+    #. From the Demo Tools click ``Steal Password`` and then ``click`` on the password field
 
+..note:: The “malware” is using JavaScript to grab the value of the password field out of the DOM (DocumentObject Model) even before the user submits it to the application.
 
-    .. image:: ../pictures/module2/pipeline.png
+    #. Click ``OK`` then clear the password you entered.
+    #. From the Demo Tools click ``Start Keylogger`` and then enter the same password as earlier.
+    #. Watch the top of the Demo Tools.
+
+The “malware” is using JavaScript to log the password as it is typed. It could also send this capture data to some malicious site.
+
+    #. In the developer tools window that opened previously, select the Network tab (F12), then click the trash can icon to delete the requests.
+    #. On the login page enter your first name as username and P@ssw0rd! as password and click Sign In.
+
+    ..note:: Your login will fail, but your credentials were still sent to the web server.
+
+   .. image:: ../pictures/module2/pipeline.png
        :align: center
        :scale: 50%
 
+    #. The user’s credentials are visible in clear text.
+    #. This is another way that malware can steal credentials. By “grabbing” the POST request and any data sent with it, including username and password.
 
-The pipeline is as below:
+**Exercise 1 – TASK3 – Perform a Form Field ``Web Inject``**
 
-.. code-block:: groovy
+Steps:
+    #.  Right-click inside the Username or Email field and select Inspect Element again.
+    #.  Right-click on the blue highlighted text in the developer tools window that opens and select Edit as HTML.
 
-    node {
-    stage 'Checkout'
-         // // Get some code from a GitHub repository
-        git url: 'http://10.1.20.4/nginx-app-protect/ansible_deploy.git'
-        sh 'ansible-galaxy install -r requirements.yml --force'
-   
-    stage name: 'Deploy NAP', concurrency: 1
-            dir("${env.WORKSPACE}"){
-            ansiblePlaybook inventory: 'hosts', playbook: 'app-protect.yml'
-            }
-            
-    stage name: 'Workaround resolver', concurrency: 1
-            dir("${env.WORKSPACE}"){
-            ansiblePlaybook inventory: 'hosts', playbook: 'copy-nginx-conf.yml'
-            }
-    }
+   .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
 
-.. note:: As you can notice, the ``Checkout`` stage installs the ``requirements``. We use the parameter ``--force`` in order to be sure we download and install the latest version of the module.
+    #. Select all the text in the window and type Ctrl+C to copy the text.
+    #. Click after the end of data-bv-field="username"> and type <br>, and then press the Enter key twice.
+    #. Type Ctrl+V to paste the copied text.
 
-.. note:: This pipeline executes 3 Ansible playbooks. 
-    
-    #. One playbook to install NGINX Plus
-    #. One playbook to install NAP
-    #. The last playbook is just there to fix an issue in UDF for the DNS resolver
+   .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
+
+    #. For the new pasted entry, change the name, id, and data-by-field values to mobile, and change the placeholder value to Mobile Phone Number.
+
+   .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
+
+    #.  Click outside of the edit box and examine the Hackazon login page.
+
+..note:: This is an example of the type of “web injects” that malware can perform to collect additional information. This same technique could be used to remove text or form fields. Note that this was done on the client side, in the browser, without any requests being sent to the server. The web application and any security infrastructure protecting it would have no idea this is happening in the browser.
+
+#. Close Firefox.
+
+**Exercise 2 – TASK1 – Review and Configure DataSafe Components**
+
+Within the exercise we will cover DataSafe Licensing and Provisioning.
+
+Steps:
+
+    #. In the Configuration Utility of the BIG-IP (connect via Chrome Bookmark or launch https://10.1.1.9/tmui/login.jsp ) admin: admin
+    #. DataSafe is NOT included in the Best Bundle but DataSafe IS INCLUDED in Advanced WAF.
+    #. Open the System > Resource Provisioning page
+
+  .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
+
+**Exercise 2 – TASK2 – DataSafe Configuration**
+
+Steps:
+
+    #.  Open the Security > Data Protection > DataSafe Profiles page on the BIG-IP and click ``Create``.
+    #.  For Profile Name enter `Hackazon-DS`.
+
+..note:: Note If the ‘Hackazon-DS’ profile already exists, please delete and follow instructions here.
+
+    #.	For Local Syslog Publisher, select local-datasafe (select the checkbox on the right side to enable this field’s configuration).
+    #.  Optional: The local-datasafe Publisher can be viewed at System -> Logs -> Configuration -> Log Publishers
+
+  .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
+
+    #. Click in Advanced and review all other options. Data Safe will serve different Javascript files under those configured HTTP paths.
+    #. On the left menu click URL List, and then click Add URL.
 
 
-.. image:: ../pictures/module2/pipeline-ok.png
-   :align: center
-   :scale: 40%
+  .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
+
+    #. For URL Path leave Explicit selected, and type /user/login
 
 
-When the pipeline is finished executing, perform a browser test within ``Chrome`` using the ``Arcadia NAP Docker`` bookmark
+  .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
+
+    #. Click in Advanced and review all other options.
+        #. Various configurations refer to where Data Safe will inject its Javascript
+
+**Exercise 2 – TASK2 – DataSafe Configuration**
 
 
-.. note :: Congrats, you deployed ``NGINX Plus`` and ``NAP`` with a CI/CD pipeline. You can check the pipelines in ``GitLab`` if you are interested to see what has been coded behind the scenes. But it is straight forward as the Ansible modules are provided by F5/NGINX.
+-  Open the Security > Data Protection > DataSafe Profiles page on the BIG-IP and click Create.
 
-**Video of this module (force HD 1080p in the video settings)**
+-  For Profile Name enter **Hackazon-DS**.
 
-.. raw:: html
+..
 
-    <div style="text-align: center; margin-bottom: 2em;">
-    <iframe width="1120" height="630" src="https://www.youtube.com/embed/1SyqUrubSr0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+   **Note** If the ‘\ **Hackazon-DS’** profile already exists, please
+   delete and follow instructions here.
+
+-  For **Local Syslog Publisher**, select **local-datasafe** (select the checkbox on the right side to enable this field’s configuration)
+
+- Optional: The local-datasafe Publisher can be viewed at System -> Logs -> Configuration -> Log Publishers
+
+   .. image:: media/image7.png
+      :alt: Graphical user interface, application Description
+      automatically generated
+      :width: 7.85416in
+      :height: 4.47153in
+
+-  Click in **Advanced** and review all other options
+
+-  Data Safe will serve different Javascript files under those configured HTTP paths
+
+-  On the left menu click **URL List**, and then click **Add URL**.
+
+.. image:: media/image8.jpeg
+   :width: 5.64444in
+   :height: 1.06597in
+
+-  For **URL Path** leave **Explicit** selected, and type **/user/login**
+
+.. image:: media/image9.png
+   :alt: Graphical user interface, text, application Description
+   automatically generated
+   :width: 5.35416in
+   :height: 2.09859in
+
+-  Click in **Advanced** and review all other options
+
+-  Various configurations refer to where Data Safe will inject its Javascript
+
+-  From the left panel open the **Parameters** page.
+-  Remember from earlier you found that the username and password parameter names are **username** and **password**.
+
+-  Click **Add**, enter a new parameter named **username**, select **Identify as Username** and then click Repeat.
+       
+-  Create a second parameter named **password**, and then click **Create.**
+
+-  For the **username** parameter select the **Obfuscation** checkbox.
+
+-  For the **password** parameter select the **Encrypt**, **Substitute Value**, and **Obfuscate** checkboxes.
+
+-  From the left menu open the **Application Layer Encryption** page. Notice that most features are enabled by default.
+
+-  Review the explanations for the different features.
+
+-  Select the **Add Decoy Inputs** checkbox
+
+-  Expand the **Advanced** section and select **Remove Element IDs**  checkbox, and then click **Save**.
+
+..
+
+   .. image:: media/image12.png
+      :width: 3.35275in
+      :height: 2.3283in
+
+-  Click **Save** to save the new profile
+
+-  Navigate to **Security ›› Event Logs : Logging Profiles** and select the ‘ASM-Bot-DoS-Log-All’ log profile.
+
+-  Ensure **Data Protection** is enabled.
+
+-  Once enabled, click on the **Data Protection** tab and ensure the **local-datasafe’** is selected from the dropdown of the **Publisher** section.
+
+-  Enable **Login Attempt** and select the **default** template. Click Update.
+
+.. image:: media/image13.png
+   :alt: Graphical user interface, application, email Description
+   automatically generated
+   :width: 3.7854in
+   :height: 3.26462in
+
+-  Navigate to **Local Traffic ›› Virtual Servers ›› Virtual Server List** page and click **Hackazon_protected_virtual**, and then open the virtual server **Security > Policies** page.
+
+-  From the **DataSafe** Profile list select Enabled.
+
+-  From the adjacent **Profile** list box that appears, select **Hackazon-DS**, and then click **Update**. **Note**. The ‘ASM-Bot-DoS-Log-All’ log profile will be applied already.
+
+..
+
+   .. image:: media/image14.jpg
+      :width: 4.03403in
+      :height: 3.655in
+
+Lab 1 - Exercise 3 – Testing DataSafe Protection
+================================================
+
+Task 1 – Review the Protected Hackazon Login Page
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  From your Windows client, open a **private** Firefox window and access http://hackazon.f5demo.com/user/login.
+
+-  Right-click inside the **Password** field and select **Inspect Element**.
+
+..
+
+   *Question:*
+
+   What is the **name** value for this field?
+
+.. image:: media/image15.png
+   :width: 6.15417in
+   :height: 0.80417in
+
+   **Obfuscation** - Notice that the name of the password field
+   (outlined in red) is now a long cryptic name and is changing every
+   second. The same is true of the username field. Perform the same for
+   the username field.
+
+   **Add Decoy Inputs** – Notice that there are other random inputs
+   being added (outlined in green). The number and order of these inputs
+   is changing frequently.
+
+-  In the developer tools window select the **Network** tab, then click the trash can icon to delete any current requests.
+
+-  On the login page enter your first name as username and **P@ssw0rd!** as password and click **Sign In**.
+
+-  In the **Network** tab select the **/login?return_url=** entry, and then examine the **Params** tab.
+
+..
+
+   *Questions:*
+
+   What parameters were submitted?
+
+   Random
+
+   Do you see a username or password field? Not really
+
+   Do you see the username you submitted? Yes
+
+   **Obfuscation** – DataSafe obfuscates the names of the parameters  when they are submitted in a login request.
+
+   **Encryption** – DataSafe encrypted the value of the password field  so that it is not a readable value in the login request.

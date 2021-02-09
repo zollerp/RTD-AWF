@@ -4,76 +4,90 @@ Module 4: Datasafe
 The purpose of this lab is to show the new DataSafe perpetual license in 13.1 and above (also part of Advanced WAF license).
 You will review the login page with and without DataSafe protections. You will enable and test encryption, obfuscation, and decoy fields.
 
-.. note:: Cudos to 
-
 **Exercise 1 – TASK 1 - Review and Attack the Login Page**
 
-Purpose: Review ``Form Fields`` with the Developer Tools.
+Purpose: Review ``Form Fields`` with the Developer Tools of your Browser.
 
 Steps:
-    #. Connect to the Windows Client ``win-client`` via RDP (Select an appropriate screen resolution for your screen) ensuirng that you login with username/password as ``admin/admin`` (change user from default Administrator if required on the logon prompt screen).
-    #. Once connected to the Windows client, open Firefox and access ``http://hackazon.f5demo.com/user/login``.
-    #. Right-click inside the Username or Email field and select Inspect Element. The developer tools window will open.
-    #. Delete/rename the directories from the existing deployment.
 
-..note:: ``FOOD FOR THOUGHT``: How difficult would it be for malware to know which fields to grab to steal credentials from this page? How difficult would it be for an attacker to stuff credentials into these fields? They could simply put the stolen username into the “username” field and the stolen password in the “password” field.
+- Connect to the **Windows Client** (win-client) via RDP (Select an appropriate screen resolution for your screen) ensuirng that you login with username/password as **admin/admin** (change user from default Administrator if required on the logon prompt screen).
+- Once connected to the Windows client, open Firefox and access http://hackazon.f5demo.com/user/login
+- Right-click inside the **Username or Email** field and select **Inspect Element**. The developer tools window will open.
+
+..
+
+   *Question:*
+
+   What is the **name** value for this field? username
+- Right-click inside the **Password** field and select **Inspect Element**.
+
+..
+
+   *Question:*
+   What is the **name** value for this field? password
+
+.. note:: ``FOOD FOR THOUGHT``: How difficult would it be for malware to know which fields to grab to steal credentials from this page? How difficult would it be for an attacker to stuff credentials into these fields? They could simply put the stolen username into the “username” field and the stolen password in the “password” field.
 
 **Exercise 1 – TASK 2 - Review Methods for Stealing Credentials**
 
 Steps:
-    #. From the Windows client, in Firefox click the FPS Demo Tools Bookmark, without opening a new tab. This includes tools that behave like real malware.
-    #. On the login page of the Hackazon website enter your first name and P@ssw0rd! as password but do not click ``Sign In``.
-    #. From the Demo Tools click ``Steal Password`` and then ``click`` on the password field
 
-..note:: The “malware” is using JavaScript to grab the value of the password field out of the DOM (DocumentObject Model) even before the user submits it to the application.
+- From the Windows client, in **Firefox** click the **FPS Demo Tools** Bookmark, without opening a new tab. This includes tools that behave like real malware
+- On the login page of the Hackazon website enter your first name and **P@ssw0rd!** as password but do not click **Sign In**.
+- From the **Demo Tools** click **Steal Password** and then click on the password field.
 
-    #. Click ``OK`` then clear the password you entered.
-    #. From the Demo Tools click ``Start Keylogger`` and then enter the same password as earlier.
-    #. Watch the top of the Demo Tools.
+.. note:: The “malware” is using JavaScript to grab the value of the password field out of the DOM (DocumentObject Model) even before the user submits it to the application.
 
-The “malware” is using JavaScript to log the password as it is typed. It could also send this capture data to some malicious site.
+- Click **OK** then clear the password you entered.
+- From the **Demo Tools** click **Start Keylogger** and then enter the same password as earlier.
+- Watch the top of the Demo Tools.
+- The “malware” is using JavaScript to log the password as it is typed. It could also send this capture data to some malicious site.
+- In the developer tools window that opened previously, select the Network tab (F12), then click the trash can icon to delete the requests.
+- On the login page enter your first name as username and P@ssw0rd! as password and click Sign In.
 
-    #. In the developer tools window that opened previously, select the Network tab (F12), then click the trash can icon to delete the requests.
-    #. On the login page enter your first name as username and P@ssw0rd! as password and click Sign In.
-
-    ..note:: Your login will fail, but your credentials were still sent to the web server.
+.. note:: Your login will fail, but your credentials were still sent to the web server.
 
    .. image:: ../pictures/module2/pipeline.png
        :align: center
        :scale: 50%
 
-    #. The user’s credentials are visible in clear text.
-    #. This is another way that malware can steal credentials. By “grabbing” the POST request and any data sent with it, including username and password.
+- The user’s credentials are visible in clear text.
+- This is another way that malware can steal credentials. By “grabbing” the POST request and any data sent with it, including username and password.
 
 **Exercise 1 – TASK3 – Perform a Form Field ``Web Inject``**
 
 Steps:
-    #.  Right-click inside the Username or Email field and select Inspect Element again.
-    #.  Right-click on the blue highlighted text in the developer tools window that opens and select Edit as HTML.
+
+- Return to the http://hackazon.f5demo.com/user/login page.
+
+.. note:: It should NOT have ?return_url= at the end of the URL in the address bar.
+
+- Right-click inside the **Username or Email** field and select **Inspect Element** again.
+- Right-click on the blue highlighted text in the developer tools window that opens and select **Edit as HTML**.
 
    .. image:: ../pictures/module2/pipeline.png
        :align: center
        :scale: 50%
 
-    #. Select all the text in the window and type Ctrl+C to copy the text.
-    #. Click after the end of data-bv-field="username"> and type <br>, and then press the Enter key twice.
-    #. Type Ctrl+V to paste the copied text.
+- Select all the text in the window and type **Ctrl+C** to copy the text.
+- Click after the end of **data-bv-field="username">** and type **<br>**, and then press the **Enter** key twice.
+- Type **Ctrl+V** to paste the copied text.
 
    .. image:: ../pictures/module2/pipeline.png
        :align: center
        :scale: 50%
 
-    #. For the new pasted entry, change the name, id, and data-by-field values to mobile, and change the placeholder value to Mobile Phone Number.
+- For the new pasted entry, change the **name**, **id**, and **data-by-field** values to **mobile**, and change the **placeholder** value to **Mobile Phone Number**.
 
    .. image:: ../pictures/module2/pipeline.png
        :align: center
        :scale: 50%
 
-    #.  Click outside of the edit box and examine the Hackazon login page.
+- Click outside of the edit box and examine the Hackazon login page.
 
-..note:: This is an example of the type of “web injects” that malware can perform to collect additional information. This same technique could be used to remove text or form fields. Note that this was done on the client side, in the browser, without any requests being sent to the server. The web application and any security infrastructure protecting it would have no idea this is happening in the browser.
+.. note:: This is an example of the type of “web injects” that malware can perform to collect additional information. This same technique could be used to remove text or form fields. Note that this was done on the client side, in the browser, without any requests being sent to the server. The web application and any security infrastructure protecting it would have no idea this is happening in the browser.
 
-#. Close Firefox.
+- Close Firefox.
 
 **Exercise 2 – TASK1 – Review and Configure DataSafe Components**
 
@@ -81,9 +95,11 @@ Within the exercise we will cover DataSafe Licensing and Provisioning.
 
 Steps:
 
-    #. In the Configuration Utility of the BIG-IP (connect via Chrome Bookmark or launch https://10.1.1.9/tmui/login.jsp ) admin: admin
-    #. DataSafe is NOT included in the Best Bundle but DataSafe IS INCLUDED in Advanced WAF.
-    #. Open the System > Resource Provisioning page
+- In the Configuration Utility of the BIG-IP (connect via Chrome Bookmark or launch https://10.1.1.9/tmui/login.jsp ) admin: admin
+
+.. note:: DataSafe is NOT included in the Best Bundle but DataSafe IS INCLUDED in Advanced WAF.
+
+- Open the System > Resource Provisioning page
 
   .. image:: ../pictures/module2/pipeline.png
        :align: center
@@ -93,142 +109,102 @@ Steps:
 
 Steps:
 
-    #.  Open the Security > Data Protection > DataSafe Profiles page on the BIG-IP and click ``Create``.
-    #.  For Profile Name enter `Hackazon-DS`.
+- Open the Security > Data Protection > DataSafe Profiles page on the BIG-IP and click Create.
+- For Profile Name enter **Hackazon-DS**.
 
-..note:: Note If the ‘Hackazon-DS’ profile already exists, please delete and follow instructions here.
+.. note:: If the **Hackazon-DS’** profile already exists, please delete and follow instructions here.
 
-    #.	For Local Syslog Publisher, select local-datasafe (select the checkbox on the right side to enable this field’s configuration).
-    #.  Optional: The local-datasafe Publisher can be viewed at System -> Logs -> Configuration -> Log Publishers
 
-  .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
-
-    #. Click in Advanced and review all other options. Data Safe will serve different Javascript files under those configured HTTP paths.
-    #. On the left menu click URL List, and then click Add URL.
-
+- For **Local Syslog Publisher**, select **local-datasafe** (select the checkbox on the right side to enable.
+- Optional: The local-datasafe Publisher can be viewed at System ->  Logs -> Configuration -> Log Publishers.
 
   .. image:: ../pictures/module2/pipeline.png
        :align: center
        :scale: 50%
 
-    #. For URL Path leave Explicit selected, and type /user/login
 
+- Click in **Advanced** and review all other options Data Safe will serve different Javascript files under those configured HTTP paths.
+- On the left menu click **URL List**, and then click **Add URL**.
 
   .. image:: ../pictures/module2/pipeline.png
        :align: center
        :scale: 50%
 
-    #. Click in Advanced and review all other options.
-        #. Various configurations refer to where Data Safe will inject its Javascript
+- For **URL Path** leave **Explicit** selected, and type **/user/login**.
 
-**Exercise 2 – TASK2 – DataSafe Configuration**
+  .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
+
+- Click in **Advanced** and review all other options.
+
+  - Various configurations refer to where Data Safe will inject its Javascript.
+
+- From the left panel open the **Parameters** page.
+
+  - Remember from earlier you found that the username and password  parameter names are **username** and **password**.
+
+- Click **Add**, enter a new parameter named **username**, select **Identify as Username** and then click Repeat.
+- Create a second parameter named **password**, and then click **Create.**
+- For the **username** parameter select the **Obfuscation** checkbox.
 
 
--  Open the Security > Data Protection > DataSafe Profiles page on the BIG-IP and click Create.
+- For the **password** parameter select the **Encrypt**, **Substitute Value**, and **Obfuscate** checkboxes.
 
--  For Profile Name enter **Hackazon-DS**.
+  .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
 
-..
 
-   **Note** If the ‘\ **Hackazon-DS’** profile already exists, please
-   delete and follow instructions here.
+- From the left menu open the **Application Layer Encryption** page.
+.. note::  Notice that most features are enabled by default.
 
--  For **Local Syslog Publisher**, select **local-datasafe** (select the checkbox on the right side to enable this field’s configuration)
+- Review the explanations for the different features.
 
-- Optional: The local-datasafe Publisher can be viewed at System -> Logs -> Configuration -> Log Publishers
+- Select the **Add Decoy Inputs** checkbox
 
-   .. image:: media/image7.png
-      :alt: Graphical user interface, application Description
-      automatically generated
-      :width: 7.85416in
-      :height: 4.47153in
+- Expand the **Advanced** section and select **Remove Element IDs**  checkbox, and then click **Save**.
 
--  Click in **Advanced** and review all other options
+  .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
 
--  Data Safe will serve different Javascript files under those configured HTTP paths
 
--  On the left menu click **URL List**, and then click **Add URL**.
+- Click **Save** to save the new profile
 
-.. image:: media/image8.jpeg
-   :width: 5.64444in
-   :height: 1.06597in
+- Navigate to **Security ›› Event Logs : Logging Profiles** and select the ‘ASM-Bot-DoS-Log-All’ log profile.
 
--  For **URL Path** leave **Explicit** selected, and type **/user/login**
+- Ensure **Data Protection** is enabled.
 
-.. image:: media/image9.png
-   :alt: Graphical user interface, text, application Description
-   automatically generated
-   :width: 5.35416in
-   :height: 2.09859in
+- Once enabled, click on the **Data Protection** tab and ensure the ‘\**local-datasafe’** is selected from the dropdown of the **Publisher** section.
 
--  Click in **Advanced** and review all other options
+- Enable **Login Attempt** and select the **default** template. Click Update.
 
--  Various configurations refer to where Data Safe will inject its Javascript
+  .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
 
--  From the left panel open the **Parameters** page.
--  Remember from earlier you found that the username and password parameter names are **username** and **password**.
+- Navigate to **Local Traffic ›› Virtual Servers ›› Virtual Server List** page and click **Hackazon_protected_virtual**, and then open the virtual server **Security > Policies** page.
 
--  Click **Add**, enter a new parameter named **username**, select **Identify as Username** and then click Repeat.
-       
--  Create a second parameter named **password**, and then click **Create.**
+- From the **DataSafe** Profile list select Enabled.
 
--  For the **username** parameter select the **Obfuscation** checkbox.
+- From the adjacent **Profile** list box that appears, select **Hackazon-DS**, and then click **Update**. 
+.. note:: The ‘ASM-Bot-DoS-Log-All’ log profile will be applied already.
 
--  For the **password** parameter select the **Encrypt**, **Substitute Value**, and **Obfuscate** checkboxes.
+  .. image:: ../pictures/module2/pipeline.png
+       :align: center
+       :scale: 50%
 
--  From the left menu open the **Application Layer Encryption** page. Notice that most features are enabled by default.
 
--  Review the explanations for the different features.
+**Exercise 3 – TASK1 – DataSafe Configuration**
 
--  Select the **Add Decoy Inputs** checkbox
+Review the Protected Hackazon Login Page
 
--  Expand the **Advanced** section and select **Remove Element IDs**  checkbox, and then click **Save**.
+Steps:
 
-..
+- From your Windows client, open a **private** Firefox window and access http://hackazon.f5demo.com/user/login.
 
-   .. image:: media/image12.png
-      :width: 3.35275in
-      :height: 2.3283in
-
--  Click **Save** to save the new profile
-
--  Navigate to **Security ›› Event Logs : Logging Profiles** and select the ‘ASM-Bot-DoS-Log-All’ log profile.
-
--  Ensure **Data Protection** is enabled.
-
--  Once enabled, click on the **Data Protection** tab and ensure the **local-datasafe’** is selected from the dropdown of the **Publisher** section.
-
--  Enable **Login Attempt** and select the **default** template. Click Update.
-
-.. image:: media/image13.png
-   :alt: Graphical user interface, application, email Description
-   automatically generated
-   :width: 3.7854in
-   :height: 3.26462in
-
--  Navigate to **Local Traffic ›› Virtual Servers ›› Virtual Server List** page and click **Hackazon_protected_virtual**, and then open the virtual server **Security > Policies** page.
-
--  From the **DataSafe** Profile list select Enabled.
-
--  From the adjacent **Profile** list box that appears, select **Hackazon-DS**, and then click **Update**. **Note**. The ‘ASM-Bot-DoS-Log-All’ log profile will be applied already.
-
-..
-
-   .. image:: media/image14.jpg
-      :width: 4.03403in
-      :height: 3.655in
-
-Lab 1 - Exercise 3 – Testing DataSafe Protection
-================================================
-
-Task 1 – Review the Protected Hackazon Login Page
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
--  From your Windows client, open a **private** Firefox window and access http://hackazon.f5demo.com/user/login.
-
--  Right-click inside the **Password** field and select **Inspect Element**.
+- Right-click inside the **Password** field and select **Inspect Element**.
 
 ..
 
@@ -249,19 +225,19 @@ Task 1 – Review the Protected Hackazon Login Page
    being added (outlined in green). The number and order of these inputs
    is changing frequently.
 
--  In the developer tools window select the **Network** tab, then click the trash can icon to delete any current requests.
+.. note:: **FOOD FOR THOUGHT**: Considering this obfuscation, do you think DataSafe could protect the login page from a credential stuffing or a regular brute force?
 
--  On the login page enter your first name as username and **P@ssw0rd!** as password and click **Sign In**.
+- In the developer tools window select the **Network** tab, then click the trash can icon to delete any current requests.
 
--  In the **Network** tab select the **/login?return_url=** entry, and then examine the **Params** tab.
+- On the login page enter your first name as username and **P@ssw0rd!** as password and click **Sign In**.
+
+- In the **Network** tab select the **/login?return_url=** entry, and then examine the **Params** tab.
 
 ..
 
    *Questions:*
 
-   What parameters were submitted?
-
-   Random
+   What parameters were submitted? Random
 
    Do you see a username or password field? Not really
 

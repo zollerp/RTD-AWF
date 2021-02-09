@@ -1,8 +1,10 @@
-Module 4: Datasafe
-##################################
+Module 4: Protecting Credentials with F5 DataSafe
+#################################################
 
 The purpose of this lab is to show the new DataSafe perpetual license in 13.1 and above (also part of Advanced WAF license).
 You will review the login page with and without DataSafe protections. You will enable and test encryption, obfuscation, and decoy fields.
+
+.. Note::
 
 **Exercise 1 – TASK 1 - Review and Attack the Login Page**
 

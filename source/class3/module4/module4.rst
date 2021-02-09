@@ -47,9 +47,11 @@ Steps:
 
 .. note:: Your login will fail, but your credentials were still sent to the web server.
 
-   .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+- In the Network tab select the /login?return_url= entry, and then examine the Params tab.
+
+        .. image:: ../pictures/module4/img_class3_module4_static_1.gif
+           :align: center
+           :scale: 30%
 
 - The user’s credentials are visible in clear text.
 - This is another way that malware can steal credentials. By “grabbing” the POST request and any data sent with it, including username and password.
@@ -65,23 +67,23 @@ Steps:
 - Right-click inside the **Username or Email** field and select **Inspect Element** again.
 - Right-click on the blue highlighted text in the developer tools window that opens and select **Edit as HTML**.
 
-   .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_2.gif
+           :align: center
+           :scale: 30%
 
 - Select all the text in the window and type **Ctrl+C** to copy the text.
 - Click after the end of **data-bv-field="username">** and type **<br>**, and then press the **Enter** key twice.
 - Type **Ctrl+V** to paste the copied text.
 
-   .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_3.gif
+           :align: center
+           :scale: 30%
 
 - For the new pasted entry, change the **name**, **id**, and **data-by-field** values to **mobile**, and change the **placeholder** value to **Mobile Phone Number**.
 
-   .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_4.gif
+           :align: center
+           :scale: 30%
 
 - Click outside of the edit box and examine the Hackazon login page.
 
@@ -101,9 +103,10 @@ Steps:
 
 - Open the System > Resource Provisioning page
 
-  .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_5.gif
+           :align: center
+           :scale: 30%
+
 
 **Exercise 2 – TASK2 – DataSafe Configuration**
 
@@ -118,23 +121,23 @@ Steps:
 - For **Local Syslog Publisher**, select **local-datasafe** (select the checkbox on the right side to enable.
 - Optional: The local-datasafe Publisher can be viewed at System ->  Logs -> Configuration -> Log Publishers.
 
-  .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_6.gif
+           :align: center
+           :scale: 30%
 
 
 - Click in **Advanced** and review all other options Data Safe will serve different Javascript files under those configured HTTP paths.
 - On the left menu click **URL List**, and then click **Add URL**.
 
-  .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_7.gif
+           :align: center
+           :scale: 30%
 
 - For **URL Path** leave **Explicit** selected, and type **/user/login**.
 
-  .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_8.gif
+           :align: center
+           :scale: 30%
 
 - Click in **Advanced** and review all other options.
 
@@ -151,9 +154,9 @@ Steps:
 
 - For the **password** parameter select the **Encrypt**, **Substitute Value**, and **Obfuscate** checkboxes.
 
-  .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_9.gif
+           :align: center
+           :scale: 30%
 
 
 - From the left menu open the **Application Layer Encryption** page.
@@ -165,9 +168,9 @@ Steps:
 
 - Expand the **Advanced** section and select **Remove Element IDs**  checkbox, and then click **Save**.
 
-  .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_10.gif
+           :align: center
+           :scale: 30%
 
 
 - Click **Save** to save the new profile
@@ -180,9 +183,10 @@ Steps:
 
 - Enable **Login Attempt** and select the **default** template. Click Update.
 
-  .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_11.gif
+           :align: center
+           :scale: 30%
+
 
 - Navigate to **Local Traffic ›› Virtual Servers ›› Virtual Server List** page and click **Hackazon_protected_virtual**, and then open the virtual server **Security > Policies** page.
 
@@ -191,12 +195,12 @@ Steps:
 - From the adjacent **Profile** list box that appears, select **Hackazon-DS**, and then click **Update**. 
 .. note:: The ‘ASM-Bot-DoS-Log-All’ log profile will be applied already.
 
-  .. image:: ../pictures/module2/pipeline.png
-       :align: center
-       :scale: 50%
+        .. image:: ../pictures/module4/img_class3_module4_static_12.gif
+           :align: center
+           :scale: 30%
 
 
-**Exercise 3 – TASK1 – DataSafe Configuration**
+**Exercise 3 – TASK1 – Testing DataSafe Protection**
 
 Review the Protected Hackazon Login Page
 
@@ -212,9 +216,9 @@ Steps:
 
    What is the **name** value for this field?
 
-.. image:: media/image15.png
-   :width: 6.15417in
-   :height: 0.80417in
+        .. image:: ../pictures/module4/img_class3_module4_static_13.gif
+           :align: center
+           :scale: 30%
 
    **Obfuscation** - Notice that the name of the password field
    (outlined in red) is now a long cryptic name and is changing every

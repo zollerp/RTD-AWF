@@ -2,14 +2,13 @@ Welcome to the F5 Advanced Web Application Firewall Solutions lab guide
 #######################################################################
 
 This series of lab exercises is intended to explain and demonstrate key features of F5 Advanced Web Application Firewall. 
-The Blueprint which we use as base for all upcoming Modules is called "Advanced WAF Demo v16 + LCC, ML and Device ID+".
+The Blueprint which we use as base for all upcoming Modules is called ``Advanced WAF Demo v16 + LCC, ML and Device ID+``.
 
 Our intend is to proviode insights on how to provide demos on the following content:
 
 **Getting to Know the Environment**
 	- Module 1: Lab Topology
 	- Module 2: How to Deploy a Solution
-	- Module 3: N/A
 
 **Class 1 - Getting started with WAF, Bot Detection and Threat Campaigns**
 	- Module 1: IPI & Geolocation Labs
@@ -24,8 +23,8 @@ Our intend is to proviode insights on how to provide demos on the following cont
  	- Module 4: Login Page protection
 
 **Class 3 - Advanced Protection and Positive Security**
-	- Module 1: Leaked Credential Check - Credential Stuffing - FOCUS
-	- Module 2: Check how Device ID+ works - FOCUS
+	- Module 1: Leaked Credential Check - Credential Stuffing
+	- Module 2: Check how Device ID+ works
 	- Module 3: Offline Machine Learning - FOCUS
 	- Module 4: Datasafe
 

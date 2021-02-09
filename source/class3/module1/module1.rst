@@ -41,8 +41,6 @@ Login to that BIG-IP instance to check the LCC configuration. The Password of th
            :align: center
            :scale: 30%
 
-
-
 #. The LCC feature is configured within the Brute-Force Protection profile. Normally a login page is specified for the login credentials to be captured by Advanced WAF. The information required to manually identify the login URL can be found by reviewing the HTML source code and snooping the HTML traffic generated as a user logs into the site (e.g. keyboard F12). 
 
         .. image:: ../pictures/module1/img_class3_module1_static_2a.gif

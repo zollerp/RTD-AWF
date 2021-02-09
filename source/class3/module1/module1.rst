@@ -18,18 +18,18 @@ Advantages of F5 Leaked Credential Check (LCC)
 
 **Flow trough the Demo**
 
-LCC is configured on BIG-IP named `BIG-IP 15.1.1 - Leaked Credential Check Demo`.
-Login to that BIG-IP instance to check the LCC configuration. The Password of the BIG-IP instance is listed within the `Details / Documentation` Tab.
+LCC is configured on BIG-IP named ``BIG-IP 15.1.1 - Leaked Credential Check Demo``.
+Login to that BIG-IP instance to check the LCC configuration. The Password of the BIG-IP instance is listed within the ``Details / Documentation`` Tab.
 
-#. Within `Security › Application Security > Security Policies > Policies List` you´ll notice a Security Policy named `LCC`.
-#. The Policy is attached to Virtual Server `arcadia.emea.f5se.com_vs` and `Hackazon_protected_vs`.
+#. Within `Security › Application Security > Security Policies > Policies List` you´ll notice a Security Policy named ``LCC``.
+#. The Policy is attached to Virtual Server ``arcadia.emea.f5se.com_vs`` and ``Hackazon_protected_vs``.
 
         .. image:: ../pictures/module1/img_class3_module1_static_1.gif
            :align: center
            :scale: 30%
 
 #. Check the LCC configuration under `Security  › Cloud Services > Cloud Security Services Applications > f5-credential-stuffing-cloud-app`.
-#. You will notice a predefined API Key ID and API Key Secret configuration. Additional the Endpoint which will be used is called `f5-credential-stuffing-blackfish`.
+#. You will notice a predefined API Key ID and API Key Secret configuration. Additional the Endpoint which will be used is called ``f5-credential-stuffing-blackfish``.
 
         .. image:: ../pictures/module1/img_class3_module1_static_2.gif
            :align: center
@@ -79,7 +79,7 @@ Login to that BIG-IP instance to check the LCC configuration. The Password of th
 +-----------------------------------+-----------------------------------------------------------------------------------------------------+
 
 
-#. Within that demo `Learning and Blocking Settings` for Leaked Credential Detection have been set to `Alarm` and `Block`.
+#. Within that demo ``Learning and Blocking Settings`` for Leaked Credential Detection have been set to ``Alarm`` and ``Block``.
 
         .. image:: ../pictures/module1/img_class3_module1_static_4.gif
            :align: center
@@ -91,12 +91,12 @@ Login to that BIG-IP instance to check the LCC configuration. The Password of th
            :align: center
            :scale: 30%
 
-#. RDP to windows machine called *win-client*. The Password of the instance is listed within the `Details / Documentation` Tab.
-    #. Launch Chrome. Spot the Folder called `Leaked Credentials Check demo`.
-    #. Choose the bookmark called `Hackazon — Login`.
+#. RDP to windows machine called *win-client*. The Password of the instance is listed within the ``Details / Documentation`` Tab.
+    #. Launch Chrome. Spot the Folder called ``Leaked Credentials Check demo``.
+    #. Choose the bookmark called ``Hackazon — Login``.
     #. Login with username ``demo33@fidnet.com`` and password ``mountainman01`` 
     #. Your login is blocked by LCC as those credentials are known as leaked credentials.
-    #. Alternatively you can also select the Arcadia bookmark in the `Leaked Credentials` Chrome Folder and you can also try other username/password combinations like usernam ``admin`` with password ``12345678``.
+    #. Alternatively you can also select the Arcadia bookmark in the ``Leaked Credentials`` Chrome Folder and you can also try other username/password combinations like usernam ``admin`` with password ``12345678``.
 
         .. image:: ../pictures/module1/img_class3_module1_animated_1.gif
            :align: center
@@ -110,12 +110,12 @@ Login to that BIG-IP instance to check the LCC configuration. The Password of th
 
 **Demo Leaked Credentials Check with a Script**
 
-.. note:: In this demo you can do it without ASM enabled first - Hydra will find credentials and password that worked, and then do it with ASM enabled
+.. note:: In this demo you can do it without ASM enabled first - Hydra will find credentials and password that worked, and then do it with ASM enabled.
 
 
-#. Remove ASM policy named `LCC` from Virtual Server `Hackazon_protected_virtual` on BIG-IP Instance `BIG-IP 15.1.1 - Leaked Credential Check Demo`.
+#. Remove ASM policy named ``LCC`` from Virtual Server ``Hackazon_protected_virtual`` on BIG-IP Instance ``BIG-IP 15.1.1 - Leaked Credential Check Demo``.
         #. Launch the attack:
-        #. SSH or use Web Shell of UDF Instance called `kali`.
+        #. SSH or use Web Shell of UDF Instance called ``kali``.
         #. Run ``sudo su``.
         #. Check you are in directory `/home/ec2-user`, else move to this directory.
         #. Launch the Brute Force stuffing attack (be careful, copy paste does not work every time because of the "").
@@ -130,12 +130,12 @@ Login to that BIG-IP instance to check the LCC configuration. The Password of th
 
 
 #. Try with a distributed attack. Here we simulate a Bot network sending a Credential Stuffing attack with thousand leaked credentials. 
-        #. Enable ASM policy "LCC" on VS "Hackazon_protected_virtual".
-        #.  #. SSH or use Web Shell of UDF Instance called `kali`.
+        #. Enable ASM policy ``LCC`` on VS ``Hackazon_protected_virtual``.
+        #. SSH or use Web Shell of UDF Instance called ``kali``.
         #. Check you are in directory `/home/ec2-user`, else move to this directory.
         #. Launch the Brute Force stuffing attack (be careful, copy paste does not work every time because of the "").
         #. ``hydra -C cred_list.txt -V -I 10.1.10.78 http-form-post "/user/login?return_url=:username=^USER^&password=^PASS^:S=My Account"``. This is the VS on the BIG-IP named ``Leaked Credential Check Demo``.
-        #. Keep attack on going and RDP to windows machine called *win-client*.
+        #. Keep attack on going and RDP to windows machine called ``win-client``.
         #. Launch Chrome and click Hackazon login bookmark.
         #. Login as demo1 / demo1, you should see a Captcha. You are a legitimate user, but the website is protecting itself. Proof you are a legitimate user by answering the CAPTCHA.
         #. Go to BIGIP and check Brute Force and cred stuffing logs `Security > Event Logs > Application > Brute Force Attack`.

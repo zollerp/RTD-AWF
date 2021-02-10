@@ -4,7 +4,7 @@ Module 4: Protecting Credentials with F5 DataSafe
 The purpose of this lab is to show the new DataSafe perpetual license in 13.1 and above (also part of Advanced WAF license).
 You will review the login page with and without DataSafe protections. You will enable and test encryption, obfuscation, and decoy fields.
 
-.. Note::
+.. Warning:: The Lab is already pre-build. Means, you can.......
 
 **Exercise 1 – TASK 1 - Review and Attack the Login Page**
 
@@ -13,20 +13,19 @@ Purpose: Review ``Form Fields`` with the Developer Tools of your Browser.
 Steps:
 
 - Connect to the **Windows Client** (win-client) via RDP (Select an appropriate screen resolution for your screen) ensuirng that you login with username/password as **admin/admin** (change user from default Administrator if required on the logon prompt screen).
-- Once connected to the Windows client, open Firefox and access http://hackazon.f5demo.com/user/login
-- Right-click inside the **Username or Email** field and select **Inspect Element**. The developer tools window will open.
-
+- Once connected to the Windows client, open **Firefox** and access **Hackazon Login** Bookmark.
+- Right-click inside the field called **Username or Email** and select **Inspect Element**. The developer tools window will open.
 ..
 
    **Question:**
 
-   What is the **name** value for this field? username
-- Right-click inside the **Password** field and select **Inspect Element**.
+   What is the **name** value for this fieldc alled **Username or Email**? username
 
+- Right-click inside the field called **Password** and select **Inspect Element**.
 ..
 
    **Question:**
-   What is the **name** value for this field? password
+   What is the **name** value for this field called **Password**? password
 
 .. note:: ``FOOD FOR THOUGHT``: How difficult would it be for malware to know which fields to grab to steal credentials from this page? How difficult would it be for an attacker to stuff credentials into these fields? They could simply put the stolen username into the “username” field and the stolen password in the “password” field.
 
@@ -34,7 +33,7 @@ Steps:
 
 Steps:
 
-- From the Windows client, in **Firefox** click the **FPS Demo Tools** Bookmark, without opening a new tab. This includes tools that behave like real malware
+- From the Windows client, in **Firefox** click the **FPS Demo Tools** Bookmark, without opening a new tab. This includes tools that behave like real malware.
 - On the login page of the Hackazon website enter your first name and **P@ssw0rd!** as password but do not click **Sign In**.
 - From the **Demo Tools** click **Steal Password** and then click on the password field.
 
@@ -45,7 +44,7 @@ Steps:
 - Watch the top of the Demo Tools.
 - The “malware” is using JavaScript to log the password as it is typed. It could also send this capture data to some malicious site.
 - In the developer tools window that opened previously, select the Network tab (F12), then click the trash can icon to delete the requests.
-- On the login page enter your first name as username and P@ssw0rd! as password and click Sign In.
+- On the login page enter your first name as username and **P@ssw0rd!** as password and click Sign In.
 
 .. note:: Your login will fail, but your credentials were still sent to the web server.
 

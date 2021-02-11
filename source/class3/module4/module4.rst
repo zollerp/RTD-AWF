@@ -4,13 +4,42 @@ Module 4: Protecting Credentials with F5 DataSafe
 The purpose of this lab is to show the new DataSafe perpetual license in 13.1 and above (also part of Advanced WAF license).
 You will review the login page with and without DataSafe protections. You will enable and test encryption, obfuscation, and decoy fields.
 
-.. Warning:: The Lab is already pre-build. Means, you can.......
+.. note:: The Lab is already pre-build. Meaning, you can show/check and demo encryption and obfuscation for password field with help of Datasafe without configuring anything. 
+   If you plan to demo from scratch, please go to **Exercise 1 – TASK 1 - Review and Attack the Login Page** and follow the instructions.
+
+
+**Demo Protecting Credentials with F5 DataSafe - pre-configured**
+
+.. note:: KNOWN BUG in 14.1 (seems to be fixed in 15.1.1): you need to enable AJAX, save, and disable AJAX in Datasafe profile for /user/login to make it works.
+
+Steps:
+
+- Connect to the **Windows Client** (win-client) via RDP (Select an appropriate screen resolution for your screen) ensuirng that you login with username/password as **user/user**.
+- Start Chrome and click bookmark Hackazon Login or Hackazon Home 
+- Move cursor to the password field, right click and select *Inspect*.
+- You can see obfuscation (password field name changing every 5 seconds).
+- Next go to tab **Network** in Developers tools.
+- Login into Hackazon with username/password as **demo1 /demo1**
+- Check encryption and obfuscation for password field.
+
+        .. image:: ../pictures/module4/img_class3_module4_animated_1.gif
+           :align: center
+           :scale: 30%
 
 **Exercise 1 – TASK 1 - Review and Attack the Login Page**
 
 Purpose: Review ``Form Fields`` with the Developer Tools of your Browser.
 
 Steps:
+
+- Datasafe is configured on BIG-IP named **BIG-IP 16.0 generic demos and Device ID+**.
+- Login to BIG-IP via WebUI and detach the `DataSafe Profile` from Virtaul Server ```Local Traffic  ››  Virtual Servers : Virtual Server List  ››  vs_Hackazon_II``
+
+
+        .. image:: ../pictures/module4/img_class3_module4_static_1a.gif
+           :align: center
+           :scale: 30%
+
 
 - Connect to the **Windows Client** (win-client) via RDP (Select an appropriate screen resolution for your screen) ensuirng that you login with username/password as **admin/admin** (change user from default Administrator if required on the logon prompt screen).
 - Once connected to the Windows client, open **Firefox** and access **Hackazon Login** Bookmark.
@@ -61,7 +90,7 @@ Steps:
 
 Steps:
 
-- Return to the http://hackazon.f5demo.com/user/login page.
+- Return to the **Hackazon — Login** page.
 
 .. note:: It should NOT have ?return_url= at the end of the URL in the address bar.
 
@@ -84,7 +113,7 @@ Steps:
 
         .. image:: ../pictures/module4/img_class3_module4_static_4.gif
            :align: center
-           :scale: 30%
+           :scale: 50%
 
 - Click outside of the edit box and examine the Hackazon login page.
 
@@ -98,7 +127,7 @@ Within the exercise we will cover DataSafe Licensing and Provisioning.
 
 Steps:
 
-- Datasafe is configured on BIG-IP named ``BIG-IP 16.0 generic demos and Device ID+``.
+- Datasafe is configured on BIG-IP named **BIG-IP 16.0 generic demos and Device ID+**.
 - In the Configuration Utility of the BIG-IP (connect via Chrome Bookmark or launch https://10.1.1.9/tmui/login.jsp ).
 - The Password of the BIG-IP instance is listed within the ``Details / Documentation`` Tab.
 
@@ -118,7 +147,7 @@ Steps:
 - Open the Security > Data Protection > DataSafe Profiles page on the BIG-IP and click Create.
 - For Profile Name enter **Hackazon-DS**.
 
-.. note:: If the **Hackazon-DS’** profile already exists, please delete and follow instructions here.
+.. note:: If the **Hackazon-DS** profile already exists, please delete and follow instructions here.
 
 
 - For **Local Syslog Publisher**, select **local-datasafe** (select the checkbox on the right side to enable.
@@ -126,7 +155,7 @@ Steps:
 
         .. image:: ../pictures/module4/img_class3_module4_static_6.gif
            :align: center
-           :scale: 30%
+           :scale: 50%
 
 
 - Click in **Advanced** and review all other options Data Safe will serve different Javascript files under those configured HTTP paths.
@@ -134,13 +163,13 @@ Steps:
 
         .. image:: ../pictures/module4/img_class3_module4_static_7.gif
            :align: center
-           :scale: 30%
+           :scale: 50%
 
 - For **URL Path** leave **Explicit** selected, and type **/user/login**.
 
         .. image:: ../pictures/module4/img_class3_module4_static_8.gif
            :align: center
-           :scale: 30%
+           :scale: 50%
 
 - Click in **Advanced** and review all other options.
 

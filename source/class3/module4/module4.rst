@@ -10,7 +10,7 @@ You will review the login page with and without DataSafe protections. You will e
 
 **Demo Protecting Credentials with F5 DataSafe - pre-configured**
 
-.. note:: KNOWN BUG in 14.1 (seems to be fixed in 15.1.1): you need to enable AJAX, save, and disable AJAX in Datasafe profile for /user/login to make it works.
+.. note:: KNOWN BUG in 14.1 (fixed in 15.1.1): you need to enable AJAX, save, and disable AJAX in Datasafe profile for /user/login to make it works.
 
 Steps:
 

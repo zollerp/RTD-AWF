@@ -24,6 +24,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_animated_1.gif
       :align: center
+      :scale: 30%
 
 **Exercise 1 – TASK 1 - Review and Attack the Login Page**
 
@@ -32,15 +33,18 @@ Purpose: Review ``Form Fields`` with the Developer Tools of your Browser.
 Steps:
 
 - Datasafe is configured on BIG-IP named **BIG-IP 16.0 generic demos and Device ID+**.
-- Login to BIG-IP via WebUI and detach the `DataSafe Profile` from Virtaul Server ``Local Traffic  ››  Virtual Servers : Virtual Server List  ››  vs_Hackazon_II``
+- Login to BIG-IP via WebUI and detach the `DataSafe Profile` from Virtaul Server ``Local Traffic  ››  Virtual Servers : Virtual Server List  ››  vs_Hackazon_II``.
 
 
    .. image:: ../pictures/module4/img_class3_module4_static_1a.gif
       :align: center
+      :scale: 50%
+
 
 - Connect to the **Windows Client** (win-client) via RDP (Select an appropriate screen resolution for your screen) ensuirng that you login with username/password as **admin/admin** (change user from default Administrator if required on the logon prompt screen).
 - Once connected to the Windows client, open **Firefox** and access **Hackazon Login** Bookmark.
 - Right-click inside the field called **Username or Email** and select **Inspect Element**. The developer tools window will open.
+
 ..
 
    **Question:**
@@ -48,6 +52,7 @@ Steps:
    What is the **name** value for this fieldc alled **Username or Email**? username
 
 - Right-click inside the field called **Password** and select **Inspect Element**.
+  
 ..
 
    **Question:**
@@ -78,6 +83,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_1.gif
       :align: center
+      :scale: 50%
  
 - The user’s credentials are visible in clear text.
 - This is another way that malware can steal credentials. By “grabbing” the POST request and any data sent with it, including username and password.
@@ -95,6 +101,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_2.gif
       :align: center
+      :scale: 50%
   
 - Select all the text in the window and type **Ctrl+C** to copy the text.
 - Click after the end of **data-bv-field="username">** and type **<br>**, and then press the **Enter** key twice.
@@ -102,11 +109,13 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_3.gif
       :align: center
+      :scale: 80%
   
 - For the new pasted entry, change the **name**, **id**, and **data-by-field** values to **mobile**, and change the **placeholder** value to **Mobile Phone Number**.
 
    .. image:: ../pictures/module4/img_class3_module4_static_4.gif
       :align: center
+      :scale: 80%
   
 - Click outside of the edit box and examine the Hackazon login page.
 
@@ -130,6 +139,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_5.gif
       :align: center
+      :scale: 50%
   
 
 **Exercise 2 – TASK2 – DataSafe Configuration**
@@ -147,6 +157,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_6.gif
       :align: center
+      :scale: 50%
   
 
 - Click in **Advanced** and review all other options Data Safe will serve different Javascript files under those configured HTTP paths.
@@ -154,11 +165,13 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_7.gif
       :align: center
+      :scale: 50%
   
 - For **URL Path** leave **Explicit** selected, and type **/user/login**.
 
    .. image:: ../pictures/module4/img_class3_module4_static_8.gif
       :align: center
+      :scale: 80%
   
 - Click in **Advanced** and review all other options.
 
@@ -177,7 +190,9 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_9.gif
       :align: center
+      :scale: 80%
   
+
 - From the left menu open the **Application Layer Encryption** page.
 .. note::  Notice that most features are enabled by default.
 
@@ -189,6 +204,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_10.gif
       :align: center
+      :scale: 80%
 
 - Click **Save** to save the new profile
 
@@ -202,6 +218,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_11.gif
       :align: center
+      :scale: 80%
 
 
 - Navigate to **Local Traffic ›› Virtual Servers ›› Virtual Server List** page and click **Hackazon_protected_virtual**, and then open the virtual server **Security > Policies** page.
@@ -213,6 +230,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_12.gif
       :align: center
+      :scale: 80%
 
 
 **Exercise 3 – TASK1 – Testing DataSafe Protection**

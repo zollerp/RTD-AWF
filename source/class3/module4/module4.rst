@@ -38,7 +38,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_1a.gif
       :align: center
-      :scale: 50%
+      :scale: 30%
 
 
 - Connect to the **Windows Client** (win-client) via RDP (Select an appropriate screen resolution for your screen) ensuirng that you login with username/password as **admin/admin** (change user from default Administrator if required on the logon prompt screen).
@@ -83,7 +83,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_1.gif
       :align: center
-      :scale: 50%
+      :scale: 30%
  
 - The user’s credentials are visible in clear text.
 - This is another way that malware can steal credentials. By “grabbing” the POST request and any data sent with it, including username and password.
@@ -98,26 +98,18 @@ Steps:
 
 - Right-click inside the **Username or Email** field and select **Inspect Element** again.
 - Right-click on the blue highlighted text in the developer tools window that opens and select **Edit as HTML**.
-
-   .. image:: ../pictures/module4/img_class3_module4_static_2.gif
-      :align: center
-      :scale: 50%
-  
 - Select all the text in the window and type **Ctrl+C** to copy the text.
 - Click after the end of **data-bv-field="username">** and type **<br>**, and then press the **Enter** key twice.
 - Type **Ctrl+V** to paste the copied text.
-
-   .. image:: ../pictures/module4/img_class3_module4_static_3.gif
-      :align: center
-      :scale: 80%
-  
 - For the new pasted entry, change the **name**, **id**, and **data-by-field** values to **mobile**, and change the **placeholder** value to **Mobile Phone Number**.
-
-   .. image:: ../pictures/module4/img_class3_module4_static_4.gif
-      :align: center
-      :scale: 80%
-  
 - Click outside of the edit box and examine the Hackazon login page.
+
+
+   .. image:: ../pictures/module4/img_class3_module4_animated_2.gif
+      :align: center
+      :scale: 30%
+
+
 
 .. note:: This is an example of the type of “web injects” that malware can perform to collect additional information. This same technique could be used to remove text or form fields. Note that this was done on the client side, in the browser, without any requests being sent to the server. The web application and any security infrastructure protecting it would have no idea this is happening in the browser.
 
@@ -139,7 +131,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_5.gif
       :align: center
-      :scale: 50%
+      :scale: 30%
   
 
 **Exercise 2 – TASK2 – DataSafe Configuration**
@@ -165,7 +157,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_7.gif
       :align: center
-      :scale: 50%
+      :scale: 30%
   
 - For **URL Path** leave **Explicit** selected, and type **/user/login**.
 
@@ -212,7 +204,7 @@ Steps:
 
 - Ensure **Data Protection** is enabled.
 
-- Once enabled, click on the **Data Protection** tab and ensure the ‘\**local-datasafe’** is selected from the dropdown of the **Publisher** section.
+- Once enabled, click on the **Data Protection** tab and ensure the **local-datasafe** is selected from the dropdown of the **Publisher** section.
 
 - Enable **Login Attempt** and select the **default** template. Click Update.
 

@@ -40,7 +40,6 @@ Steps:
       :align: center
       :scale: 30%
 
-
 - Connect to the **Windows Client** (win-client) via RDP (Select an appropriate screen resolution for your screen) ensuirng that you login with username/password as **admin/admin** (change user from default Administrator if required on the logon prompt screen).
 - Once connected to the Windows client, open **Firefox** and access **Hackazon Login** Bookmark.
 - Right-click inside the field called **Username or Email** and select **Inspect Element**. The developer tools window will open.
@@ -104,12 +103,9 @@ Steps:
 - For the new pasted entry, change the **name**, **id**, and **data-by-field** values to **mobile**, and change the **placeholder** value to **Mobile Phone Number**.
 - Click outside of the edit box and examine the Hackazon login page.
 
-
    .. image:: ../pictures/module4/img_class3_module4_animated_2.gif
       :align: center
       :scale: 30%
-
-
 
 .. note:: This is an example of the type of “web injects” that malware can perform to collect additional information. This same technique could be used to remove text or form fields. Note that this was done on the client side, in the browser, without any requests being sent to the server. The web application and any security infrastructure protecting it would have no idea this is happening in the browser.
 
@@ -149,7 +145,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_6.gif
       :align: center
-      :scale: 50%
+      :scale: 30%
   
 
 - Click in **Advanced** and review all other options Data Safe will serve different Javascript files under those configured HTTP paths.
@@ -163,7 +159,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_8.gif
       :align: center
-      :scale: 80%
+      :scale: 30%
   
 - Click in **Advanced** and review all other options.
 
@@ -182,7 +178,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_9.gif
       :align: center
-      :scale: 80%
+      :scale: 30%
   
 
 - From the left menu open the **Application Layer Encryption** page.
@@ -196,7 +192,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_10.gif
       :align: center
-      :scale: 80%
+      :scale: 30%
 
 - Click **Save** to save the new profile
 
@@ -210,7 +206,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_11.gif
       :align: center
-      :scale: 80%
+      :scale: 30%
 
 
 - Navigate to **Local Traffic ›› Virtual Servers ›› Virtual Server List** page and click **Hackazon_protected_virtual**, and then open the virtual server **Security > Policies** page.
@@ -222,7 +218,7 @@ Steps:
 
    .. image:: ../pictures/module4/img_class3_module4_static_12.gif
       :align: center
-      :scale: 80%
+      :scale: 30%
 
 
 **Exercise 3 – TASK1 – Testing DataSafe Protection**

@@ -14,7 +14,7 @@ More precisely, it is an identifier for a browser or a native mobile application
 
 .. note:: If you haven´t worked with Device ID+ before, please review the `Device ID+`_ Article on F5 Cloud Services.
 
-.. _`Device ID+` : https://clouddocs.f5.com/cloud-services/latest/f5-cloud-services-DeviceID-About.html
+.. _`Device ID+` : https://f5cloudservices.zendesk.com/hc/en-us/categories/360005886653-Device-ID-
 
 
 **Check how Device ID+ works**
@@ -40,7 +40,7 @@ More precisely, it is an identifier for a browser or a native mobile application
 
 .. note::  F5 Cloud Services on `Getting Started with F5 Device ID+`_ cover the application onboard with F5 Device ID+ on BIG-IP in more detail.
 
-.. _`Getting Started with F5 Device ID+` : https://clouddocs.f5.com/cloud-services/latest/f5-cloud-services-DeviceID-GettingStarted.html#getting-started-with-f5-device-id
+.. _`Getting Started with F5 Device ID+` : https://f5cloudservices.zendesk.com/hc/en-us/articles/360060301673-Getting-Started-with-F5-Device-ID-
 
 
 **Device ID+ and iRule**

@@ -2,7 +2,6 @@
 Class 1 - Getting started with WAF, Bot Detection and Threat Campaigns
 **********************************************************************
 
-
 This class will focus on a best practice approach to getting started with F5 WAF and application security.
 
 Class 1 will give you guidance on deploying WAF services in a successive fashion. 

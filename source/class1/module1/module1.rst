@@ -1,5 +1,5 @@
-Module 1: IP Intelligence (IPI) & Geolocation Labs
-##################################################
+Module 1: IP Intelligence (IPI) 
+###############################
 
 The purpose of this lab is to show the how IP Intelligence is working.
 

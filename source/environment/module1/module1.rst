@@ -18,10 +18,11 @@ BIG-IP Component
 .. note:: This BIG-IP mainly used to Demo *Leaked Credential Check Demo*. The feature *Leaked Credential Check Demo* is currently in Beta.
 
 - ``BIG-IP 16.0 - Generic Demos and Device ID+``
+
 On this BIG-IP you can run Demos on following purposes:
 
 * Device ID+
-* IPI & Geolocation Labs
+* IP Intelligence
 * Bot Detection Lab
 * Threat Campaigns
 * Transparent WAF Policy

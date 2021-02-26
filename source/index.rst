@@ -11,7 +11,7 @@ Our intend is to proviode insights on how to provide demos on the following cont
 	- Module 2: How to Deploy a Solution
 
 **Class 1 - Getting started with WAF, Bot Detection and Threat Campaigns**
-	- Module 1: IPI & Geolocation Labs
+	- Module 1: IP Intelligence
 	- Module 2: Bot Detection Lab
 	- Module 3: Threat Campaigns
  	- Module 4: Transparent WAF Policy

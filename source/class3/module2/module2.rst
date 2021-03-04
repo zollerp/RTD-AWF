@@ -2,6 +2,7 @@ Module 2: Check how Device ID+ works
 ####################################
 
 In this module, we will work with Device ID+ and get the identifier reported back into /var/ltm/log of BIG-IP.
+Additional a BIG-IP reports into ELK Stack. So you can correlate data for anaylses.
 
 .. warning:: This is not a full integration to show a Device ID+ / AWF Demo. Currently we are working on Use Cases which can be integrated into the Demo.
 
@@ -94,3 +95,102 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
         .. image:: ../pictures/module2/img_class3_module2_animated_6.gif
            :align: center
            :scale: 30%
+
+
+**Device ID+ and ELK**
+
+Within the UDf Enviroment you will find an instanced called **ELK**.
+Here we run a ELK Container which is used to visualize Device Identifier and correlate date i.e. Username to Device ID; Geo IP to Device ID.
+
+Steps: 
+RDP to windows machine called *win-client*. The Password of the instance is listed within the ``Details / Documentation`` Tab.
+    #. Launch Chrome and choose the bookmark called ``Device ID+ Kibana``.
+    #. Klick the button left to "Home". Within the Kibana Section you can choose between **Discover** or **Dashboard**.
+ 
+        .. image:: ../pictures/module2/img_class3_module2_animated_7.gif
+           :align: center
+           :scale: 30%
+
+**Demo some Use Cases - Deliberate use of proxy networks**
+
+Within that use case we will cover a sudden fluctuations in IPs per DeviceID.
+As the Source IP of the RDP Client is static, we will use XFF to simulate access from the same browser, but changing the Source IP Address.
+
+Steps:
+
+    #. Launch Chrome adn discover the browser add-on called **IP**.
+    #. With the help of the add-on, we can simulate access by the same browser but leverage different IP address.
+    #. Feel free to use whatever IP address comes up to your mind. A list with example IP addresses is stored on clients desktop.
+
+        .. image:: ../pictures/module2/img_class3_module2_animated_8.gif
+           :align: center
+           :scale: 30%
+
+    #. Select one IP Address and access the bookmark called ``Device ID check``.
+    #. With that you will access the **Arcadia Application**.
+    #. Go back to **Device ID+ Kibana**, select **Discover** and filter for **deviceA** within the vailable fields.
+  
+        .. image:: ../pictures/module2/img_class3_module2_animated_9.gif
+           :align: center
+           :scale: 30%
+
+    #. Note the IP Address which has been collected by hover over the field **xff_ip**.
+    #. Back to the add-on called **IP** select another IP address of your choice.
+    #. Issue another request to the **Arcadia Application** and go back to the **Discover** menu of Kibana.
+    #. Note the IP Address which has been collected by hover over the field **xff_ip**.
+    #. You´ll notice the same Device ID A identifier is used from two different IP addresses.
+
+        .. image:: ../pictures/module2/img_class3_module2_animated_10.gif
+           :align: center
+           :scale: 30%
+
+    #. Within the Kibana **Dashboard** you got the visualized output of your before carried out tasks.
+    #. So access to **Arcadia Application** has been made from two different Source IPs, however, there is only one **Device ID Type A** / **Device ID Type B** identifier generated.
+
+        .. image:: ../pictures/module2/img_class3_module2_animated_11.gif
+           :align: center
+           :scale: 30%
+
+
+**Demo some Use Cases - Unusual Devices accessing user accounts**
+
+    #. Within that demo we will try to login to **Arcadia Application** with different username as well we change the Source IP of the request.
+    #. You either do it manually by using the Browser or use Postman.
+    #. In this example I´ll use Postman. 
+    #. Open Postman from your Desktop and open the collection called "Device ID+ ELK". Here you´ll find one request.
+    #. Within the request you could modify either the Body called **username** or the Header called **x-forwarded-for**.
+
+        .. image:: ../pictures/module2/img_class3_module2_animated_12.gif
+           :align: center
+           :scale: 30%
+
+    #. In the exmaple I´ll simulate two login requests using two different username and two different Source IPs. 
+
+        .. image:: ../pictures/module2/img_class3_module2_animated_13.gif
+           :align: center
+           :scale: 30%
+
+    #. Within the Dashboard of Kibana you´ll see those two requests generated only one **Device ID Type A** / **Device ID Type B**.
+
+        .. image:: ../pictures/module2/img_class3_module2_static_2.gif
+           :align: center
+           :scale: 30%
+
+    #. However, those requests came from two different source IPs (two Region).
+
+        .. image:: ../pictures/module2/img_class3_module2_static_3.gif
+           :align: center
+           :scale: 30%
+    
+    #. The Ratio between **Device ID Type A** / **Device ID Type B** and **Source IPs** is 1:2 (1 Device ID to 2 Source IPs).
+
+        .. image:: ../pictures/module2/img_class3_module2_static_4.gif
+           :align: center
+           :scale: 30%
+
+    #. The Ratio between **Device ID Type A** / **Device ID Type B** and **Username** is 1:2 (1 Device ID to 2 Username).
+
+        .. image:: ../pictures/module2/img_class3_module2_static_5.gif
+           :align: center
+           :scale: 30%
+

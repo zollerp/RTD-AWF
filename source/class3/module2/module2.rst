@@ -99,11 +99,14 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
 
 **Device ID+ and ELK**
 
-Within the UDf Enviroment you will find an instanced called **ELK**.
-Here we run a ELK Container which is used to visualize Device Identifier and correlate date i.e. Username to Device ID; Geo IP to Device ID.
+Within the UDF Environment you will find an instance called **ELK**.
+Here we run an ELK Container which is used to visualize Device Identifier and correlate data i.e. Username to Device ID; Geo IP to Device ID.
+
+.. note:: This is a MVP. So please reach out if you have use cases which we should add to the Demo.
 
 Steps: 
-RDP to windows machine called *win-client*. The Password of the instance is listed within the ``Details / Documentation`` Tab.
+RDP to windows machine called *win-client*. The Password of the instance is listed within the **Details / Documentation** Tab.
+
     #. Launch Chrome and choose the bookmark called ``Device ID+ Kibana``.
     #. Klick the button left to "Home". Within the Kibana Section you can choose between **Discover** or **Dashboard**.
  
@@ -117,8 +120,7 @@ Within that use case we will cover a sudden fluctuations in IPs per DeviceID.
 As the Source IP of the RDP Client is static, we will use XFF to simulate access from the same browser, but changing the Source IP Address.
 
 Steps:
-
-    #. Launch Chrome adn discover the browser add-on called **IP**.
+    #. Launch Chrome and discover the browser add-on called **IP**.
     #. With the help of the add-on, we can simulate access by the same browser but leverage different IP address.
     #. Feel free to use whatever IP address comes up to your mind. A list with example IP addresses is stored on clients desktop.
 
@@ -126,9 +128,9 @@ Steps:
            :align: center
            :scale: 30%
 
-    #. Select one IP Address and access the bookmark called ``Device ID check``.
+    #. Select one IP Address and access the bookmark called **Device ID check**.
     #. With that you will access the **Arcadia Application**.
-    #. Go back to **Device ID+ Kibana**, select **Discover** and filter for **deviceA** within the vailable fields.
+    #. Go back to **Device ID+ Kibana**, select **Discover** and filter for **deviceA** within the variable fields.
   
         .. image:: ../pictures/module2/img_class3_module2_animated_9.gif
            :align: center
@@ -164,7 +166,7 @@ Steps:
            :align: center
            :scale: 30%
 
-    #. In the exmaple I´ll simulate two login requests using two different username and two different Source IPs. 
+    #. In the example I´ll simulate two login requests using two different username and two different Source IPs. 
 
         .. image:: ../pictures/module2/img_class3_module2_animated_13.gif
            :align: center

@@ -27,7 +27,6 @@ Steps:
    - 218.17.228.102 - Spam Source
    - 220.169.127.172 - Scanner
 
-      
    .. image:: ../pictures/module1/img_class1_module1_animated_1.gif
       :align: center
       :scale: 30%

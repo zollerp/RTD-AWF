@@ -2,11 +2,10 @@ Module 2: Check how Device ID+ works
 ####################################
 
 In this module, we will work with Device ID+ and get the identifier reported back into /var/ltm/log of BIG-IP.
-Additional a BIG-IP reports into ELK Stack. So you can correlate data for anaylses.
+Additional BIG-IP reports into ELK Stack and within the ELK Dashbaord we correlate data i.e. Device Identifier, User, IP and Unified BOT Information for anaylses.
 
-.. warning:: This is not a full integration to show a Device ID+ / AWF Demo. Currently we are working on Use Cases which can be integrated into the Demo.
 
-.. note:: We are currently working on a use case to leverage Device ID+ together with AWF and will update the Module accordingly. If you got a specific AWF "Device ID+ Usecase" in mind, please reach out to Patrick Zoller.
+.. note:: If you got a specific AWF "Device ID+ Usecase" in mind, please reach out to Patrick Zoller.
 
 **Device ID+ Overview**
 
@@ -29,15 +28,13 @@ More precisely, it is an identifier for a browser or a native mobile application
 
         .. image:: ../pictures/module2/img_class3_module2_animated_2.gif
            :align: center
-           :scale: 30%
-
+ 
     #. Within the iApp configuration you will find predefined JS Injection configuration in the `1JS` part. Furthermore the 1JS gets been injected on the Virtual Server named `arcadia.emea.f5se.com_vs`.
        We leave the rest of the configuration untouched. 
 
         .. image:: ../pictures/module2/img_class3_module2_animated_3.gif
            :align: center
-           :scale: 30%
-
+ 
 .. note::  F5 Cloud Services on `Getting Started with F5 Device ID+`_ cover the application onboard with F5 Device ID+ on BIG-IP in more detail.
 
 .. _`Getting Started with F5 Device ID+` : https://f5cloudservices.zendesk.com/hc/en-us/articles/360060301673-Getting-Started-with-F5-Device-ID-
@@ -71,7 +68,7 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
 
         .. image:: ../pictures/module2/img_class3_module2_animated_4.gif
            :align: center
-           :scale: 30%
+
  
 **How to test Device ID+**
 
@@ -85,15 +82,13 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
 
          .. image:: ../pictures/module2/img_class3_module2_animated_5.gif
            :align: center
-           :scale: 30%
-
+ 
 
     #. You may want to do further test by running `Chrome`in Incognito Modus and compare the values of `diA` and `diB` with the outcome of the previous test.
     #. Also check *tail -f /var/log/ltm* in the SSH Session as the values of `diA` and `diB` of the *_imp_apg_r_* cookie have been written to the file.
 
         .. image:: ../pictures/module2/img_class3_module2_animated_6.gif
            :align: center
-           :scale: 30%
 
 
 **Device ID+ and ELK**
@@ -112,21 +107,19 @@ Steps:
  
         .. image:: ../pictures/module2/img_class3_module2_animated_7.gif
            :align: center
-           :scale: 30%
 
 .. note:: Within the Dashboard you will find pre-configured Visualizations. The Dashboard has only a limited space in terms of sizing. In case you want to anaylses a specific Visualization, use the function called **Maximize Panel**.
 
         .. image:: ../pictures/module2/img_class3_module2_animated_7a.gif
             :align: center
-            :scale: 30%
 
 **Demo Use Cases - Single Device accessing unauthorized accounts**
 
 Within here we will Demo sudden fluctuations in Users per DeviceID.
 
-.. image:: ../pictures/module2/img_class3_module2_static_6.gif
-    :align: center
-    :scale: 30%
+        .. image:: ../pictures/module2/img_class3_module2_static_6.gif
+            :align: center
+
 
 Steps:
 
@@ -134,16 +127,15 @@ Steps:
     #. Navigate to the **Login** section of the Application.
     #. Try to login with different random Username.
 
-.. image:: ../pictures/module2/img_class3_module2_animated_8.gif
-    :align: center
-    :scale: 30%     
+    .. image:: ../pictures/module2/img_class3_module2_animated_8.gif
+        :align: center
 
     #. Go back to **Device ID+ Kibana** and select **Dashboard**.
     #. Here you will see that a single Device (single **Device ID Type A** and **Type B**) tried to access the App with differnet Username.
   
-.. image:: ../pictures/module2/img_class3_module2_animated_9.gif
-    :align: center
-    :scale: 30%     
+    .. image:: ../pictures/module2/img_class3_module2_animated_9.gif
+        :align: center
+     
 
     #. If you like to Demo it with Postman, open **Postman**, start **New Runner Tab**  by navigating to the **File** Menu of Postman.
     #. From **Runner** drag the collection **Device ID+ ELK** into the Field **RUN ORDER**.
@@ -152,25 +144,21 @@ Steps:
     #. Now Press **Run Device ID+ ELK** in Runner.
   
 
-.. image:: ../pictures/module2/img_class3_module2_animated_10.gif
-    :align: center
-    :scale: 30%     
-
+    .. image:: ../pictures/module2/img_class3_module2_animated_10.gif
+        :align: center
     
 **Demo Use Cases - Deliberate use of proxy networks**
 
 Within that use case you will cover a single Device accessing unauthorized accounts from different Source IPs.
 
-.. image:: ../pictures/module2/img_class3_module2_static_7.gif
-    :align: center
-    :scale: 30%
+    .. image:: ../pictures/module2/img_class3_module2_static_7.gif
+        :align: center
 
 You will use Postman Runner to simulate 10 Request with 10 different Username using 10 different IPs but the same Device ID.
 
-.. image:: ../pictures/module2/img_class3_module2_static_8.gif
-    :align: center
-    :scale: 30%
-
+    .. image:: ../pictures/module2/img_class3_module2_static_8.gif
+        :align: center
+    
 Steps:
 
 	#. Open **Postman**, start **New Runner Tab**  by navigating to the **File** Menu of Postman.
@@ -179,18 +167,17 @@ Steps:
     #. Via **preview** check which Data we will Post via Runner to login page of **Arcadia Application**.
     #. Now Press **Run Device ID+ ELK** in Runner.
 
-.. image:: ../pictures/module2/img_class3_module2_animated_11.gif
-    :align: center
-    :scale: 30%     
+    .. image:: ../pictures/module2/img_class3_module2_animated_11.gif
+        :align: center    
 
     #. Go back to your Kibana Dashboard.
     #. Within here you see again there is only one **Device ID Type A** / **Device ID Type B** identifier generated.
     #. The requests coming from 10 different geo locations.
     #. 10 Usernames have been used with one **Device ID Type A** / **Device ID Type B**  to logon to the page.
 
-.. image:: ../pictures/module2/img_class3_module2_animated_12.gif
-    :align: center
-    :scale: 30%
+    .. image:: ../pictures/module2/img_class3_module2_animated_12.gif
+        :align: center
+
 
 **Demo Use Cases - Unusual Devices accessing user accounts**
 
@@ -198,10 +185,9 @@ Within this Demo we will use Postman Runner to simulate requests coming from dif
 The Source IP will be the same however, the **Device ID Type A** / **Device ID Type B** will change on the malicious request.
 You´ll also see valid request coming from username **xyzgood**.
     
-.. image:: ../pictures/module2/img_class3_module2_static_9.gif
-    :align: center
-    :scale: 30%    
-    
+    .. image:: ../pictures/module2/img_class3_module2_static_9.gif
+        :align: center
+       
 Steps:
     
     #. Open **Postman**, start **New Runner Tab**  by navigating to the **File** Menu of Postman.
@@ -212,13 +198,11 @@ Steps:
     #. Go back to your Kibana Dashboard.
     #. Within here you see that various **Device ID Type A** / **Device ID Type B** have been generated by a single IP.
     
-.. image:: ../pictures/module2/img_class3_module2_animated_13.gif
-    :align: center
-    :scale: 30%
-
+    .. image:: ../pictures/module2/img_class3_module2_animated_13.gif
+        :align: center
+    
  #. If you invest further, you´ll see potential valid requets as these coming from a unique User by a Unique IP generating a single Device Identifier. 
  #. On the other hand you see differnt Device Identifier been generated by the same IP using random Usernames.
  
-.. image:: ../pictures/module2/img_class3_module2_animated_14.gif
-    :align: center
-    :scale: 30%
+	.. image:: ../pictures/module2/img_class3_module2_animated_14.gif
+        :align: center    

@@ -24,8 +24,7 @@ More precisely, it is an identifier for a browser or a native mobile application
 
         .. image:: ../pictures/module2/img_class3_module2_animated_1.gif
            :align: center
-           :scale: 30%
-    
+      
     #. Within the WebUI of the BIG-IP instances navigate to iApps › Application Services : Applications › deviceID and select `Reconfigure`.
 
         .. image:: ../pictures/module2/img_class3_module2_animated_2.gif
@@ -101,12 +100,13 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
 
 Within the UDF Environment you will find an instance called **ELK**.
 Here we run an ELK Container which is used to visualize Device Identifier and correlate data i.e. Username to Device ID; Geo IP to Device ID.
+Additional **AWF Unified Bot Protection** log events into ELK. Those logs been correlated as well.
 
 .. note:: This is a MVP. So please reach out if you have use cases which we should add to the Demo.
 
 Steps: 
-RDP to windows machine called *win-client*. The Password of the instance is listed within the **Details / Documentation** Tab.
 
+    #. RDP to windows machine called *win-client*. The Password of the instance is listed within the **Details / Documentation** Tab.
     #. Launch Chrome and choose the bookmark called **Device ID+ Kibana**.
     #. Klick the Button left to "Home". Within the Kibana Section you can choose between **Discover** or **Dashboard**.
  
@@ -114,99 +114,111 @@ RDP to windows machine called *win-client*. The Password of the instance is list
            :align: center
            :scale: 30%
 
-**Demo Use Cases - Deliberate use of proxy networks**
+.. note:: Within the Dashboard you will find pre-configured Visualizations. The Dashboard has only a limited space in terms of sizing. In case you want to anaylses a specific Visualization, use the function called **Maximize Panel**.
 
-Within that use case we will cover a sudden fluctuations in IPs per DeviceID.
-As the Source IP of the RDP Client is static, we will use XFF to simulate access from the same browser, but changing the Source IP Address.
-
-Steps:
-    #. Launch Chrome and discover the browser add-on called **IP**.
-    #. With the help of the add-on, we can simulate access by the same browser but leverage different IP address.
-    #. Feel free to use whatever IP address comes up to your mind. A list with example IP addresses is stored on clients desktop named **Device ID+ XFF IP List**.
-
-        .. image:: ../pictures/module2/img_class3_module2_animated_8.gif
-           :align: center
-           :scale: 30%
-
-    #. Select one IP Address and access the bookmark called **Device ID check**.
-    #. With that you will access the **Arcadia Application**.
-    #. Go back to **Device ID+ Kibana**, select **Discover** and filter for **deviceA** within the variable fields.
-  
-        .. image:: ../pictures/module2/img_class3_module2_animated_9.gif
-           :align: center
-           :scale: 30%
-
-    #. Note the IP Address which has been collected by hover over the field **xff_ip**.
-    #. Back to the Browser add-on called **IP** select another IP address of your choice.
-    #. Issue another request to the **Arcadia Application** and go back to the **Discover** menu of Kibana.
-    #. Note the IP Address which has been collected by hover over the field **xff_ip**.
-    #. You´ll notice the same Device ID A identifier is used from two different IP addresses.
-
-        .. image:: ../pictures/module2/img_class3_module2_animated_10.gif
-           :align: center
-           :scale: 30%
-
-    #. Within the Kibana **Dashboard** you got the visualized output of your before carried out tasks.
-    #. So access to **Arcadia Application** has been made from two different Source IPs, however, there is only one **Device ID Type A** / **Device ID Type B** identifier generated.
-
-        .. image:: ../pictures/module2/img_class3_module2_animated_11.gif
-           :align: center
-           :scale: 30%
+        .. image:: ../pictures/module2/img_class3_module2_animated_7a.gif
+            :align: center
+            :scale: 30%
 
 **Demo Use Cases - Single Device accessing unauthorized accounts**
 
 Within here we will Demo sudden fluctuations in Users per DeviceID.
 
-Steps:
-    #. Within that demo you will try to login to **Arcadia Application** with different usernames.
-    #. You will notice that **Device ID Type A** / **Device ID Type B** will remain the same while the usernames will change.
-    #. You either do it manually by using the Browser or you use Postman.
-    #. In this example I´ll use Postman. 
-    #. Open Postman from your Desktop and open the collection called "Device ID+ ELK".
-    #. You´ll find a POST command been called **Login to Arcadia**
-    #. Within the request you can modify the **Body** called **username**.
-
-    .. image:: ../pictures/module2/img_class3_module2_static_1a.gif
-            :align: center
-            :scale: 30%
-
-    #. In the example I´ll simulate two login requests using two different username. 
-    #. Within the Dashboard of Kibana you´ll see those two requests generated only one **Device ID Type A** / **Device ID Type B** Identifier.
-
-    .. image:: ../pictures/module2/img_class3_module2_animated_12.gif
-            :align: center
-            :scale: 30%
-
-**Demo Use Cases - Deliberate use of proxy networkss and Single Device accessing unauthorized accounts**
-
-Within this Demo we will use  Postman Runner to simulate 50 user requests coming from 5 Regions. 
+.. image:: ../pictures/module2/img_class3_module2_static_6.gif
+    :align: center
+    :scale: 30%
 
 Steps:
 
-    #. Open Postman from your Desktop and open the collection called "Device ID+ ELK".
-    #. You´ll find a POST command been called **Login to Arcadia**
-    #. Under **Headers** Tab of Postman search for **x-forwarded-for**. You will notice we will use a variable called **{{fip}}**
-    #. Under **Body** Tab of Postman you will notice we will use a variable called **{{fname}}**.
+    #. Launch Chrome and discover the browser and access the bookmark called **Device ID check**. This will launch the **Arcadia Application**.
+    #. Navigate to the **Login** section of the Application.
+    #. Try to login with different random Username.
 
-        .. image:: ../pictures/module2/img_class3_module2_animated_13.gif
-            :align: center
-            :scale: 30%
+.. image:: ../pictures/module2/img_class3_module2_animated_8.gif
+    :align: center
+    :scale: 30%     
 
-    #. Open a **New Runner Tab** by navigating to the **File* Menu of Postman.
+    #. Go back to **Device ID+ Kibana** and select **Dashboard**.
+    #. Here you will see that a single Device (single **Device ID Type A** and **Type B**) tried to access the App with differnet Username.
+  
+.. image:: ../pictures/module2/img_class3_module2_animated_9.gif
+    :align: center
+    :scale: 30%     
+
+    #. If you like to Demo it with Postman, open **Postman**, start **New Runner Tab**  by navigating to the **File** Menu of Postman.
     #. From **Runner** drag the collection **Device ID+ ELK** into the Field **RUN ORDER**.
-    #. Choose the Source Data File named **contact_us1** by using the **select file** menu.
+    #. Choose the Source Data File named **Demo_1.csv** by using the **select file** menu.
+    #. Via **preview** check which Data we will Post via Runner to login page of **Arcadia Application**.
+    #. Now Press **Run Device ID+ ELK** in Runner.
+  
+
+.. image:: ../pictures/module2/img_class3_module2_animated_10.gif
+    :align: center
+    :scale: 30%     
+
+    
+**Demo Use Cases - Deliberate use of proxy networks**
+
+Within that use case you will cover a single Device accessing unauthorized accounts from different Source IPs.
+
+.. image:: ../pictures/module2/img_class3_module2_static_7.gif
+    :align: center
+    :scale: 30%
+
+You will use Postman Runner to simulate 10 Request with 10 different Username using 10 different IPs but the same Device ID.
+
+.. image:: ../pictures/module2/img_class3_module2_static_8.gif
+    :align: center
+    :scale: 30%
+
+Steps:
+
+	#. Open **Postman**, start **New Runner Tab**  by navigating to the **File** Menu of Postman.
+    #. From **Runner** drag the collection **Device ID+ ELK** into the Field **RUN ORDER**.
+    #. Choose the Source Data File named **Demo_2.csv** by using the **select file** menu.
     #. Via **preview** check which Data we will Post via Runner to login page of **Arcadia Application**.
     #. Now Press **Run Device ID+ ELK** in Runner.
 
-        .. image:: ../pictures/module2/img_class3_module2_animated_14.gif
-            :align: center
-            :scale: 30%
+.. image:: ../pictures/module2/img_class3_module2_animated_11.gif
+    :align: center
+    :scale: 30%     
 
     #. Go back to your Kibana Dashboard.
     #. Within here you see again there is only one **Device ID Type A** / **Device ID Type B** identifier generated.
-    #. The requests coming from 5 different geo locations.
-    #. 50 Usernames have been used with one **Device ID Type A** / **Device ID Type B**  to logon to the page.
+    #. The requests coming from 10 different geo locations.
+    #. 10 Usernames have been used with one **Device ID Type A** / **Device ID Type B**  to logon to the page.
 
-    .. image:: ../pictures/module2/img_class3_module2_animated_15.gif
-            :align: center
-            :scale: 30%
+.. image:: ../pictures/module2/img_class3_module2_animated_12.gif
+    :align: center
+    :scale: 30%
+
+**Demo Use Cases - Unusual Devices accessing user accounts**
+
+Within this Demo we will use Postman Runner to simulate requests coming from different devices sitting behind a proxy network.
+The Source IP will be the same however, the **Device ID Type A** / **Device ID Type B** will change on the malicious request.
+You´ll also see valid request coming from username **xyzgood**.
+    
+.. image:: ../pictures/module2/img_class3_module2_static_9.gif
+    :align: center
+    :scale: 30%    
+    
+Steps:
+    
+    #. Open **Postman**, start **New Runner Tab**  by navigating to the **File** Menu of Postman.
+    #. From **Runner** drag the collection **Device ID+ ELK** into the Field **RUN ORDER**.
+    #. Choose the Source Data File named **Demo_3.csv** by using the **select file** menu.
+    #. Via **preview** check which Data we will Post via Runner to login page of **Arcadia Application**.
+    #. Now Press **Run Device ID+ ELK** in Runner.
+    #. Go back to your Kibana Dashboard.
+    #. Within here you see that various **Device ID Type A** / **Device ID Type B** have been generated by a single IP.
+    
+.. image:: ../pictures/module2/img_class3_module2_animated_13.gif
+    :align: center
+    :scale: 30%
+
+ #. If you invest further, you´ll see potential valid requets as these coming from a unique User by a Unique IP generating a single Device Identifier. 
+ #. On the other hand you see differnt Device Identifier been generated by the same IP using random Usernames.
+ 
+.. image:: ../pictures/module2/img_class3_module2_animated_14.gif
+    :align: center
+    :scale: 30%

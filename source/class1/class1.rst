@@ -13,11 +13,6 @@ This class focuses entirely on the negative security model aspects of WAF config
 	- Module 3: Threat Campaigns
  	- Module 4: Transparent WAF Policy
 
-**First of all, this is Arcadia Finance application**
-
-.. image:: ./pictures/arcadia-app.png
-   :align: center
-
 .. toctree::
    :maxdepth: 1
    :glob:

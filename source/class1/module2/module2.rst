@@ -3,7 +3,7 @@ Module 2: Bot Detection Lab
 
 In this Lab we want to get familar with the Bot Detection Capabilities of AWAF. The goal is to create and apply a transparent Bot Defense Profile (signatures only) and enable logging for Bot requests.
 
-.. important :: To only focus on Bot Defense, we will use the "Hackazon_BaDOS_protected" virtual server for this, because there is no WAF policy attached to it. If you wanna use a different VS, please make sure that there is no WAF policy active.
+.. important :: To only focus on Bot Defense, we will use the "vs_Hackazon_I" virtual server for this, because there is no WAF policy attached to it. If you wanna use a different VS, please make sure that there is no WAF policy active.
 
 |
 
@@ -13,7 +13,7 @@ In this Lab we want to get familar with the Bot Detection Capabilities of AWAF. 
 Create Logging Profile
 *******************************
 
-.. note :: The **"Hackazon_BaDOS_protected"** already has a Logging Profile attached to it, which can be used for this demo. In case there is no Logging Profile attached or you want to create your own profile for this demo, use the steps described below. 
+.. note :: The **"vs_Hackazon_I"** virtual server already has a Logging Profile attached to it, which can be used for this demo. In case there is no Logging Profile attached or you want to create your own profile for this demo, use the steps described below. 
 
 #. Navigate to **Security > Event Logs > Logging Profiles** and create a new Logging Profile with the settings shown in the screenshot below (local publisher with all options enabled).
 #. Give it a name and click **create**.
@@ -23,6 +23,8 @@ Create Logging Profile
 |
 Create Bot Defense Profile
 *******************************
+
+.. note :: The **"vs_Hackazon_I"** virtual server already has a Bot Defense Profile attached to it, which can be used for this demo. In case there is no profile attached or you want to create your own for this demo, use the steps described below. 
 
 #. Navigate to **Security > Bot Defense > Bot Defense Profiles** and click **Create**.
 #. Choose a name (e.g. mybotprofile) and set the Enforcement mode to **transparent**. Review the **Bot Mitigation Settings** and **Signature Enforcement**, but leave all settings on default for now (We will cover more options in **Class 2 / Module 1**).
@@ -34,9 +36,9 @@ Create Bot Defense Profile
 Enable Bot Defense and Logging
 *************************************
 
-#. Navigate to **Local Traffic > Virtual Servers > Virtual Server List > Hackazon_BaDOS_protected**
+#. Navigate to **Local Traffic > Virtual Servers > Virtual Server List > vs_Hackazon_I**
 #. Click on the **Security** Tab and click **Policies**.
-#. Enable Bot Defense and Logging with the profiles created before.
+#. Enable Bot Defense and Logging with the profiles created before. (as mentioned before, you can use the preconfigured settings for this demo)
 #. Click **Update**
 
 .. note :: Make sure there is either the existing Logging Profile: **L7-DOS_BOT_Logger** or the **new created** Logging Profile attached to this VS. 
@@ -77,7 +79,7 @@ Start generating Traffic
 
    .. image:: ../pictures/module2/image06.png
 
-#. Navigate to **Security > Event Logs > Bet Defense > Bot Traffic** and review the Dashboard. Click on the Hackazon_BaDOS_protected VS to see more details for this specific Application.
+#. Navigate to **Security > Event Logs > Bet Defense > Bot Traffic** and review the Dashboard. Click on the "vs_Hackazon_I" VS to see more details for this specific Application.
 
    .. image:: ../pictures/module2/image07.png
     :width: 90%
@@ -96,7 +98,7 @@ Override settings and create execptions for specific bots
 
 .. note :: It may occur, that some Bots are detected as false positives and/or the false mitigation action will be applied. In this case, you can create exceptions to override the default settings per bot.
 
-#. Navigate to **Security > Bot Defense > Bot Defense Profiles** and click **on the profile** (either your own or the preconfigured DOS_BOT_Logger profile). 
+#. Navigate to **Security > Bot Defense > Bot Defense Profiles** and click **on the profile** (either your **own** or the preconfigured **bot-defense-upgraded-from-Hackazon_BaDOS** profile). 
 #. Click on **Bot Mitigation Setings**
 #. On the Bottom, click on **Add Exception** 
 

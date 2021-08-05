@@ -31,7 +31,7 @@ Purpose: Review ``Form Fields`` with the Developer Tools of your Browser.
 
 Steps:
 
-#. Datasafe is configured on BIG-IP named **BIG-IP 16.0 generic demos and Device ID+**.
+#. Datasafe is configured on BIG-IP named **BIG-IP 16.1 - All Demos**.
 #. Login to BIG-IP via WebUI and detach the `DataSafe Profile` from Virtaul Server ``Local Traffic  ››  Virtual Servers : Virtual Server List  ››  vs_Hackazon_II``.
 
 
@@ -116,7 +116,7 @@ Within the exercise we will cover DataSafe Licensing and Provisioning.
 
 Steps:
 
-#. Datasafe is configured on BIG-IP named **BIG-IP 16.0 generic demos and Device ID+**.
+#. Datasafe is configured on BIG-IP named **BIG-IP 16.1 - All Demos**.
 #. In the Configuration Utility of the BIG-IP (connect via Chrome Bookmark or launch https://10.1.1.9/tmui/login.jsp ).
 #. The Password of the BIG-IP instance is listed within the ``Details / Documentation`` Tab.
 

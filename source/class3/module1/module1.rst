@@ -18,7 +18,7 @@ Advantages of F5 Leaked Credential Check (LCC)
 
 **Flow trough the Demo**
 
-LCC is configured on BIG-IP named ``BIG-IP 15.1.1 - Leaked Credential Check Demo``.
+LCC is configured on BIG-IP named ``BIG-IP 16.1 - All Demos``.
 Login to that BIG-IP instance to check the LCC configuration. The Password of the BIG-IP instance is listed within the ``Details / Documentation`` Tab.
 
 #. Within `Security › Application Security > Security Policies > Policies List` you´ll notice a Security Policy named ``LCC``.
@@ -113,7 +113,7 @@ Login to that BIG-IP instance to check the LCC configuration. The Password of th
 
 |
 
-#. Remove ASM policy named ``LCC`` from Virtual Server ``Hackazon_protected_virtual`` on BIG-IP Instance ``BIG-IP 15.1.1 - Leaked Credential Check Demo``.
+#. Remove ASM policy named ``LCC`` from Virtual Server ``Hackazon_protected_virtual`` on BIG-IP Instance ``BIG-IP 16.1 - All Demos``.
         #. Launch the attack:
         #. SSH or use Web Shell of UDF Instance called ``kali``.
         #. Run ``sudo su``.

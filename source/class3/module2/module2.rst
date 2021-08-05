@@ -22,7 +22,7 @@ More precisely, it is an identifier for a browser or a native mobile application
 **Check how Device ID+ works**
 
 
-#. Connect to BIG-IP named "BIG-IP 16.0 generic demos and Device ID+" via TMUI.
+#. Connect to BIG-IP named "BIG-IP 16.1 - All Demos" via TMUI.
 
     .. image:: ../pictures/module2/img_class3_module2_animated_1.gif
         :width: 90%
@@ -82,7 +82,7 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
 
 |
 
-#. To verify and view the logged values, connect to BIG-IP named "BIG-IP 16.0 generic demos and Device ID+" via SSH. 
+#. To verify and view the logged values, connect to BIG-IP named "BIG-IP 16.1 - All Demos" via SSH. 
 #. Run *run util bash* followed by *tail -f /var/log/ltm* in the SSH Session.
 #. RDP to windows machine called *win-client*.
 #. Launch Chrome.

@@ -38,7 +38,7 @@ Steps:
 
 Steps:
 
-#. IP Intelligence is configured on BIG-IP named **BIG-IP 16.0 generic demos and Device ID+**. 
+#. IP Intelligence is configured on BIG-IP named **BIG-IP 16.1 - All Demos**. 
 #. Login to BIG-IP via WebUI (The Password of the BIG-IP instance is listed within the **Details / Documentation** Tab).
 #. Navigate to Security > Event Logs > Application > Requests and review the entries. You should see a Sev3 Alert for the attempted access to uri: /xff-test from a malicious IP.
   

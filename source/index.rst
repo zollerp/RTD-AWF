@@ -18,14 +18,14 @@ Our intend is to proviode insights on how to provide demos on the following cont
 	
 **Class 2 - Elevated WAF Protection**
 	- Module 1: Bot Defense
-	- Module 2: Behavioral DoS
-	- Module 3: DAST Integration
- 	- Module 4: Login Page protection
+	- Module 2: Behavioral DOS Protection
+	- Module 3: DAST Integrations
+ 	- Module 4: Login Page Protection
 
 **Class 3 - Advanced Protection and Positive Security**
 	- Module 1: Leaked Credential Check - Credential Stuffing
 	- Module 2: Check how Device ID+ works
-	- Module 3: Offline Machine Learning - FOCUS
+	- Module 3: Offline Machine Learning
 	- Module 4: Protecting Credentials with DataSafe
 
 To deploy a solution you must be logged into UDF (https://udf.f5.com).

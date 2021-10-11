@@ -1,9 +1,14 @@
 Class 3 - Advanced Protection and Positive Security
 ###################################################
 
-In this class, we will deploy NGINX App Protect in CentOS host by installing the RPM packages from the official NGINX Plus Repo.
+This lab will focus on how to progress your application security to the limits of what F5 WAF can offer.
 
-.. warning:: In this lab, there are cert + keys to download the packages from official NGINX repo. It is forbidden to share them with anyone.
+This is the 3rd Class which is mainly based on:
+`Succeeding with Application Security
+<https://support.f5.com/csp/article/K07359270>`_ which closely maps to this visualization of layered Application Security.
+
+Here is a complete listing of all topics we cover in Class 3:
+
 
 .. toctree::
    :maxdepth: 1

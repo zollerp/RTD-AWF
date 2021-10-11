@@ -1,14 +1,13 @@
 Class 2 - Elevated WAF Protection
-##########################################################
+#################################
 
-In this class, we will deploy App Protect with several methods. We will start with a manual method building the Docker images, and we will finish with a full CI/CD pipeline workflow.
+This class will focus on a best practice approach to elevating your WAF protection after becoming comfortable with the content of Class 1. 
+This is the 2nd class in a three part lab series based on: `Succeeding with Application Security <https://support.f5.com/csp/article/K07359270>`_ which closely maps to this visualization of layered Application Security. 
 
-.. note:: At the moment, this lab does not cover the deployment of NAP in a Linux host. It covers only Docker deployment. You can use Frida's UDF blueprint to know how to deploy NAP in Linux host.
-
+Here is a complete listing of all topics we cover in Class 2:
 
 .. toctree::
    :maxdepth: 1
    :glob:
 
    module*/module*
-

@@ -1,4 +1,4 @@
-Module 2: Bot Mitigation Lab
+Module 1: Bot Mitigation Lab
 *******************************
 
 In this Lab we want to get familar with all the additional features avaialble for Bot Defense. The goal is to understand the difference between signature-based and JavaScript-based Detection capabilities and mitigation options.

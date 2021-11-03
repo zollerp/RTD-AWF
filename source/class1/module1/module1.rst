@@ -53,8 +53,9 @@ Steps:
 
 .. note:: These are the settings that govern what happens when a violation occurs such as Alarm and Block. We will cover these concepts later in the lab but for now the policy is in blocking but within the IPI configuration is we enabled **alarm** only.
 
-#. Navigate to Security > Application Security > IP Addresses > IP Intelligence and enable IP Intelligence by checking the box.
-#. Notice at the top left drop-down that you are working within the **Hackazon-WAF-IPI** policy context. Also **alarm** for each category is configured, only.
+#. Navigate to Security › Application Security > Security Policies > Policies List.
+#. Select the Security Policy named "Hackazon-WAF-IPI". Within the "Policy Configuration" choose "IP Intelligence".
+#. Notice at the top right that IPI is "ON" and **alarm** is configured for each category.
 
 .. image:: ../pictures/module1/img_class1_module1_animated_3.gif
       :width: 90%

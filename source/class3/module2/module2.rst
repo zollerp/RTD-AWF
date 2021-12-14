@@ -1,25 +1,36 @@
-Module 2: Check how Device ID+ works
-####################################
+Module 2: Check how Application Traffic Insights works
+######################################################
 
-In this module, we will work with Device ID+ and get the identifier reported back into /var/ltm/log of BIG-IP.
-Additional BIG-IP reports into ELK Stack and within the ELK Dashbaord we correlate data i.e. Device Identifier, User, IP and Unified BOT Information for anaylses.
+In this module, we will work with Application Traffic Insights and get the identifier reported back into /var/ltm/log of BIG-IP.
+Additional BIG-IP reports into ELK Stack and within the ELK Dashboard we correlate data i.e. Device Identifier, User, IP and Unified BOT Information for anaylses.
 
 
-.. note:: If you got a specific AWF "Device ID+ Usecase" in mind, please reach out to Patrick Zoller.
+**Application Traffic Insights Overview**
+
+Application Traffic Insight (ATI) is a Proof of Value (PoV) tool that allows customers to explore different Shape products and understand their benefits and value (free of charge for a period of 60 days).
+​​​​​​​ATI is an easy-to-use, self-service deployment with multiple deployment options on a variety of platforms (F5 or otherwise).
+
+.. note:: If you haven´t worked with Application Traffic Insight (ATI)  before, please review the `Application Traffic Insight (ATI)`_ Article on Volterra Docs.
+
+.. _`Application Traffic Insight (ATI)` : https://www.volterra.io/docs/services/shape/csd
+
+Application Traffic Insights is easy-to-use as it allows flexible and easy deployment using Big-IP, NGINX, SSE, AWS and JS snippet
+Give the customer compelling Proof of Value (PoV) charts/dashboards.
+
+**Device Traffic Dashboard**
+
+    .. image:: ../pictures/module2/img_class3_module2_static_10.gif
+        :width: 90%
+
+
+**Bot Assessment Dashboard**
+
+   .. image:: ../pictures/module2/img_class3_module2_static_11.gif
+        :width: 90%
+
 |
 
-**Device ID+ Overview**
-
-DeviceID+ is a pseudonymized identifier that can be used to identify a device visiting a customer's applications. 
-More precisely, it is an identifier for a browser or a native mobile application. For the initial release of DeviceID+, we are only focusing on Web and Mobile Web applications.
-
-.. note:: If you haven´t worked with Device ID+ before, please review the `Device ID+`_ Article on F5 Cloud Services.
-
-.. _`Device ID+` : https://f5cloudservices.zendesk.com/hc/en-us/categories/360005886653-Device-ID-
-
-|
-
-**Check how Device ID+ works**
+**Check how Application Traffic Insights Overview* works**
 
 
 #. Connect to BIG-IP named "BIG-IP 16.1 - All Demos" via TMUI.
@@ -27,7 +38,7 @@ More precisely, it is an identifier for a browser or a native mobile application
     .. image:: ../pictures/module2/img_class3_module2_animated_1.gif
         :width: 90%
       
-#. Within the WebUI of the BIG-IP instances navigate to iApps › Application Services : Applications › deviceID and select `Reconfigure`.
+#. Within the WebUI of the BIG-IP instances navigate to iApps › Application Services : Applications › Application_Traffic_Insight and select `Reconfigure`.
 
     .. image:: ../pictures/module2/img_class3_module2_animated_2.gif
         :width: 90%
@@ -39,14 +50,14 @@ More precisely, it is an identifier for a browser or a native mobile application
 
 |
 
-.. note::  F5 Cloud Services on `Getting Started with F5 Device ID+`_ cover the application onboard with F5 Device ID+ on BIG-IP in more detail.
+.. note::  Volterra on `Getting Started with F5 Device ID+`_ cover the application onboard with F5 Device ID+ on BIG-IP in more detail.
 
 .. _`Getting Started with F5 Device ID+` : https://f5cloudservices.zendesk.com/hc/en-us/articles/360060301673-Getting-Started-with-F5-Device-ID-
 
 |
-**Device ID+ and iRule**
+**Application Traffic Insights and iRule**
 
-Device ID+ includes two identifiers – a residue-based identifier and an attribute-based identifier. The residue-based identifier is based on local storage and cookies. 
+Application Traffic Insights includes two identifiers – a residue-based identifier and an attribute-based identifier. The residue-based identifier is based on local storage and cookies. 
 The attribute-based identifier is based on signals collected on the device. The two identifiers always have different values.
 
 1JS writes both the residue-based and attribute-based identifiers in a single, first-party cookie called *_imp_apg_r_*. The *_imp_apg_r_* cookie is URL encoded with the following format:
@@ -68,7 +79,7 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
 
 .. note:: Here, diA represents the residue-based identifier and diB represents the attribute-based identifier.
 
-**How to decode Device ID+ _imp_apg_r_ cookie with an iRule**
+**How to decode Application Traffic Insights _imp_apg_r_ cookie with an iRule**
 
 #. Within BIG-IP we use an iRule named *print_deviceid* and do a URL decoding of the *_imp_apg_r_* cookie and log *diA* and *diB* into /var/log/ltm of BIG-IP.
 #. The irule named *print_deviceid* has been attached to Virtual Server named `arcadia.emea.f5se.com_vs`.
@@ -78,10 +89,9 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
  
 |
 
-**How to test Device ID+**
+**How to test Application Traffic Insights**
 
 |
-
 #. To verify and view the logged values, connect to BIG-IP named "BIG-IP 16.1 - All Demos" via SSH. 
 #. Run *run util bash* followed by *tail -f /var/log/ltm* in the SSH Session.
 #. RDP to windows machine called *win-client*.
@@ -95,7 +105,7 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
  
 |
 
-#. You may want to do further test by running `Chrome`in Incognito Modus and compare the values of `diA` and `diB` with the outcome of the previous test.
+#. You may want to do further test by running `Chrome` in Incognito Modus and compare the values of `diA` and `diB` with the outcome of the previous test.
 #. Also check *tail -f /var/log/ltm* in the SSH Session as the values of `diA` and `diB` of the *_imp_apg_r_* cookie have been written to the file.
 
     .. image:: ../pictures/module2/img_class3_module2_animated_6.gif
@@ -103,7 +113,9 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
 
 |
 
-**Device ID+ and ELK**
+
+
+**Application Traffic Insights and ELK**
 |
 
 Within the UDF Environment you will find an instance called **ELK**.
@@ -116,7 +128,7 @@ Additional **AWF Unified Bot Protection** log events into ELK. Those logs been c
 **Steps:**
 
 #. RDP to windows machine called *win-client*. The Password of the instance is listed within the **Details / Documentation** Tab.
-#. Launch Chrome and choose the bookmark called **Device ID+ Kibana**.
+#. Launch Chrome and choose the bookmark called **Kibana - Dashboard**.
 #. Klick the Button left to "Home". Within the Kibana Section you can choose between **Discover** or **Dashboard**.
  
     .. image:: ../pictures/module2/img_class3_module2_animated_7.gif
@@ -132,6 +144,7 @@ Additional **AWF Unified Bot Protection** log events into ELK. Those logs been c
         :width: 90%
 
 |
+
 
 **Demo Use Cases - Single Device accessing unauthorized accounts**
 

@@ -24,7 +24,7 @@ Our intend is to proviode insights on how to provide demos on the following cont
 
 **Class 3 - Advanced Protection and Positive Security**
 	- Module 1: Leaked Credential Check - Credential Stuffing
-	- Module 2: Check how Device ID+ works
+	- Module 2: Check how Application Traffic Insights works
 	- Module 3: Offline Machine Learning
 	- Module 4: Protecting Credentials with DataSafe
 

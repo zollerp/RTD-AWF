@@ -12,12 +12,12 @@ Application Traffic Insight (ATI) is a Proof of Value (PoV) tool that allows cus
 
 .. note:: If you haven´t worked with Application Traffic Insight (ATI)  before, please review the `Application Traffic Insight (ATI)`_ Article on Volterra Docs.
 
-.. _`Application Traffic Insight (ATI)` : https://www.volterra.io/docs/services/shape/csd
+.. _`Application Traffic Insight (ATI)` : https://www.volterra.io/docs/services/shape/ati
 
 Application Traffic Insights is easy-to-use as it allows flexible and easy deployment using Big-IP, NGINX, SSE, AWS and JS snippet
 Give the customer compelling Proof of Value (PoV) charts/dashboards.
 
-**Device Traffic Dashboard**
+**Device Traffic Dashboard**
 
     .. image:: ../pictures/module2/img_class3_module2_static_10.gif
         :width: 90%
@@ -29,9 +29,7 @@ Give the customer compelling Proof of Value (PoV) charts/dashboards.
         :width: 90%
 
 |
-
 **Check how Application Traffic Insights Overview* works**
-
 
 #. Connect to BIG-IP named "BIG-IP 16.1 - All Demos" via TMUI.
 
@@ -50,14 +48,14 @@ Give the customer compelling Proof of Value (PoV) charts/dashboards.
 
 |
 
-.. note::  Volterra on `Getting Started with F5 Device ID+`_ cover the application onboard with F5 Device ID+ on BIG-IP in more detail.
+.. note::  Volterra on `ATI on VoltConsole`_ cover the Application Traffic Insight onboarding in more detail.
 
-.. _`Getting Started with F5 Device ID+` : https://f5cloudservices.zendesk.com/hc/en-us/articles/360060301673-Getting-Started-with-F5-Device-ID-
+.. _`ATI on VoltConsole` : https://www.volterra.io/docs/how-to/shape/ati
 
 |
 **Application Traffic Insights and iRule**
 
-Application Traffic Insights includes two identifiers – a residue-based identifier and an attribute-based identifier. The residue-based identifier is based on local storage and cookies. 
+Application Traffic Insights includes two identifiers - a residue-based identifier and an attribute-based identifier. The residue-based identifier is based on local storage and cookies. 
 The attribute-based identifier is based on signals collected on the device. The two identifiers always have different values.
 
 1JS writes both the residue-based and attribute-based identifiers in a single, first-party cookie called *_imp_apg_r_*. The *_imp_apg_r_* cookie is URL encoded with the following format:
@@ -70,10 +68,8 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
 
 .. code-block::
 
-
     "diA": "AT9cyV8AAAAAd60uXCtYafPTZGLaVAku"
     "diB": "ASJ4gFmzPo/a8AHJceWhykudRoXeBGlP"
-
 
 |
 
@@ -112,7 +108,6 @@ This cookie can be decoded via https://www.urldecoder.org/ to get the response i
         :width: 90%
 
 |
-
 
 
 **Application Traffic Insights and ELK**
